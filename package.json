@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "gulp-vulcanize": "^6.1.0"
+  }
+}
