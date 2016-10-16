@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="../bower_components/web-component-tester/browser.js"></script>
+	<link rel="import" href="../src/adeira-leftMenu.html">
+</head>
+<body>
+	<test-fixture id="leftMenu">
+		<template>
+			<adeira-leftMenu></adeira-leftMenu>
+		</template>
+	</test-fixture>
+
+	<script>
+		suite('<adeira-leftMenu>', function () {
+			let leftMenu;
+			setup(function () {
+				leftMenu = fixture('leftMenu');
+			});
+
+			test('menu items', function (done) {
+				let spans = leftMenu.querySelectorAll('paper-item > span');
+				let values = Array.prototype.map.call(spans, function (span) {
+					return span.innerText;
+				});
+
+				assert.deepEqual([
+					'Dashboard',
+					'Inbound sources'
+				], values);
+
+				done();
+			});
+
+			a11ySuite('leftMenu')
+		});
+	</script>
+</body>
+</html>

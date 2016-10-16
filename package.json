@@ -1,4 +1,10 @@
 {
+  "author": "Martin Zlámal",
+  "license": "MIT",
+  "scripts": {
+    "testLocal": "wct",
+    "testSauce": "wct --plugin sauce"
+  },
   "devDependencies": {
     "gulp-vulcanize": "^6.1.0"
   }
