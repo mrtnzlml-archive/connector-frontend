@@ -13,6 +13,10 @@ before_script:
 script:
   - npm run-script testSauce
 
+before_deploy:
+  - rm -r node_modules
+  - rm -r test
+
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
