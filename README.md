@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adeira/connector-frontend.svg?branch=master)](https://travis-ci.org/adeira/connector-frontend)
+
 ```
 bower install
 npm install
