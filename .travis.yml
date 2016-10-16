@@ -13,6 +13,14 @@ before_script:
 script:
   - npm run-script testSauce
 
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: "adeira-frontend"
+  skip_cleanup: true
+  region: eu-central-1
+
 cache:
   directories:
     - bower_components
