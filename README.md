@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/adeira/connector-frontend.svg?branch=master)](https://travis-ci.org/adeira/connector-frontend)
 
+[![Build Status](https://saucelabs.com/browser-matrix/mrtnzlml.svg)](https://saucelabs.com/beta/builds/0189c6aa87994d51af06bf03197c4644)
+
 ```
 bower install
 npm install
