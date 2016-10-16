@@ -7,8 +7,8 @@ addons:
 
 before_script:
   - npm install -g bower
+  - npm install -g web-component-tester
   - bower install
-  - npm install
 
 script:
   - npm run-script testSauce
