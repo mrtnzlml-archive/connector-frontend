@@ -16,3 +16,12 @@ Run tests on Sauce Labs cluster (`SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environ
 ```
 npm run-script testSauce
 ```
+
+If you want to test this application locally on your mobile phone I suggest [Ngrok](https://ngrok.com/). You can create secure tunnel to localhost like this:
+```
+./ngrok http 127.0.0.1:80
+```
+
+Application is after every successful build deployed to the Amazon AWS S3 bucket (because it's just static frontend).
+
+[http://adeira-frontend.s3-website.eu-central-1.amazonaws.com/](http://adeira-frontend.s3-website.eu-central-1.amazonaws.com/)
