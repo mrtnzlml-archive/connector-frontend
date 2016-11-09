@@ -1,5 +1,9 @@
+<link rel="import" href="adeira-cardsGrid.html">
 <link rel="import" href="adeira-leftMenu.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
@@ -21,6 +25,11 @@
 				};
 			}
 
+			paper-toolbar a {
+				color: inherit;
+				text-decoration: inherit;
+			}
+
 			.paper-font-headline {
 				@apply(--paper-font-headline);
 			}
@@ -36,20 +45,40 @@
 			}
 		</style>
 
+		<app-location route="{{route}}" use-hash-as-path></app-location>
+		<app-route
+				route="{{route}}"
+				pattern="/:page"
+				data="{{routeData}}"
+				tail="{{subroute}}">
+		</app-route>
+		<app-route
+				route="{{subroute}}"
+				pattern="/:id"
+				data="{{subrouteData}}">
+		</app-route>
+
 		<paper-scroll-header-panel class="flex">
 
 			<paper-toolbar class="shadow-elevation-2dp">
 				<paper-icon-button icon="menu" on-tap="toggleDrawer"></paper-icon-button>
-				<h1 class="paper-font-headline">Adeira<strong>:connector</strong></h1>
+				<a href="#/">
+					<h1 class="paper-font-headline">Adeira<strong>:connector</strong></h1>
+				</a>
 			</paper-toolbar>
 
 			<paper-drawer-panel style="position:relative" id="drawerPanel">
-				<adeira-leftMenu drawer id="drawer"></adeira-leftMenu>
+				<adeira-leftMenu drawer id="drawer" selected="{{routeData.page}}"></adeira-leftMenu>
 
-				<div main id="main" style="overflow-y: auto">
-					<!--TODO-->
-					<p>Main content</p>
-				</div>
+				<!-- https://www.polymer-project.org/1.0/toolbox/routing -->
+				<iron-pages main role="main" selected="{{routeData.page}}" attr-for-selected="page" style="overflow-y: auto">
+					<div page="">
+						<adeira-cardsGrid page="inbound" route="{{subroute}}"></adeira-cardsGrid>
+					</div>
+					<div page="inbound">
+						inbound
+					</div>
+				</iron-pages>
 			</paper-drawer-panel>
 
 		</paper-scroll-header-panel>
@@ -60,6 +89,11 @@
 			is: 'adeira-application',
 			toggleDrawer: function () {
 				this.$.drawerPanel.togglePanel();
+			},
+			attached: function () {
+				if (this.route.path === '') {
+					this.set('route.path', '/');
+				}
 			}
 		});
 	</script>
