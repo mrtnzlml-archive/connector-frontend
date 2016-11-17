@@ -50,9 +50,12 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "material-ui": "^0.16.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-relay": "^0.9.3"
+    "react-relay": "^0.9.3",
+    "react-router": "^3.0.0",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
