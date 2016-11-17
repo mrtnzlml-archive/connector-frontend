@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Relay from 'react-relay';
 
 class LeftMenu extends Component {
-  render() {
-    return (
-      <div>LeftMenu - OK</div>
-    );
-  }
+	render() {
+
+		//console.log(this.props.dataSource);
+
+		return (
+			<div>
+				LeftMenu - OK
+			</div>
+		);
+	}
 }
+
+LeftMenu.propTypes = {
+	dataSource: React.PropTypes.object.isRequired
+};
 
 export default Relay.createContainer(LeftMenu, {
 	fragments: {
