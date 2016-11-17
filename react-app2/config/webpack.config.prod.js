@@ -104,7 +104,7 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
 	      query: {
-		      plugins: ['./../scripts/babelRelayPlugin']
+		      plugins: [paths.appSrc + '/../scripts/babelRelayPlugin']
 	      }
       },
       // The notation here is somewhat confusing.

@@ -107,7 +107,7 @@ module.exports = {
           cacheDirectory: findCacheDir({
             name: 'react-scripts'
           }),
-	        plugins: ['./../scripts/babelRelayPlugin']
+	        plugins: [paths.appSrc + '/../scripts/babelRelayPlugin']
         }
       },
       // "postcss" loader applies autoprefixer to our CSS.
