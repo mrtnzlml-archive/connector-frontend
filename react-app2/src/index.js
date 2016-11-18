@@ -1,4 +1,4 @@
-import App from './App/App';
+import App from './components/App/App';
 // import DataSourceRoute from './DeviceRelayQueryConfig';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,9 +11,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {green100, green500, green700} from 'material-ui/styles/colors';
 
 import {Redirect, Router, Route, browserHistory} from 'react-router'
-import DataSource from './DataSource/DataSource';
+import DataSource from './components/DataSource/DataSource';
 
-import NotFound from './Error/NotFound';
+import NotFound from './components/Error/NotFound';
 
 injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
 
