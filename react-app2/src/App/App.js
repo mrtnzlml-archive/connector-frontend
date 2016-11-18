@@ -3,6 +3,7 @@ import React from 'react';
 import LeftMenu from './../LeftMenu/LeftMenu';
 import './App.css';
 import Dashboard from './../Dashboard/Dashboard';
+import LoginForm from './../LoginForm/LoginForm';
 
 class App extends React.Component {
 	constructor(props) {
@@ -14,7 +15,7 @@ class App extends React.Component {
 
 	render() {
 		if (!this.state.loggedIn) {
-			return <div>Log In</div>
+			return <LoginForm/>
 		}
 
 		return (

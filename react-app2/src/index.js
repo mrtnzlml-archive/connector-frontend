@@ -19,7 +19,9 @@ injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/340
 
 Relay.injectNetworkLayer(
 	new Relay.DefaultNetworkLayer('http://adeira.loc/graphql', {
-		credentials: 'same-origin',
+		headers: {
+			Authorization: 'Bearer ' + 'TOKEN' //TODO
+		},
 	})
 );
 

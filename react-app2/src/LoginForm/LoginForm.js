@@ -1,33 +1,44 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			value: ''
+			username: '',
+			password: '',
 		};
 
-		this.handleChange = this.handleChange.bind(this);
+		// This binding is necessary to make `this` work in the callback
+		this.handleChangeUsername = this.handleChangeUsername.bind(this);
+		this.handleChangePassword = this.handleChangePassword.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleChange(event) {
+	handleChangeUsername(event) {
 		this.setState({
-			value: event.target.value
+			username: event.target.value
+		});
+	}
+
+	handleChangePassword(event) {
+		this.setState({
+			password: event.target.value
 		});
 	}
 
 	handleSubmit(event) {
-		alert('A name was submitted: ' + this.state.value);
+		alert(this.state.username + ' / ' + this.state.password);
 		event.preventDefault();
 	}
 
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				Name:
-				<input type="text" value={this.state.value} onChange={this.handleChange}/>
-				<input type="submit" value="Submit"/>
+				<TextField type="text" floatingLabelText="Username" value={this.state.username} onChange={this.handleChangeUsername}/><br/>
+				<TextField type="password" floatingLabelText="Password" value={this.state.password} onChange={this.handleChangePassword}/><br/>
+				<RaisedButton type="submit" label="Sign In" primary={true}/>
 			</form>
 		);
 	}
