@@ -1,19 +1,14 @@
-import App from './components/App/App';
 // import DataSourceRoute from './DeviceRelayQueryConfig';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {green100, green500, green700} from 'material-ui/styles/colors';
-
-import {Redirect, Router, Route, browserHistory} from 'react-router'
-import DataSource from './components/DataSource/DataSource';
-
-import NotFound from './components/Error/NotFound';
+import {Router, browserHistory} from 'react-router'
+import routes from './routes/index';
 
 injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
 
@@ -36,14 +31,6 @@ const muiTheme = getMuiTheme({
 		borderColor: null,
 	},
 });
-
-const routes = (
-	<Route path="/" component={App}>
-		<Route path="data-sources" component={DataSource}/>
-		<Route path='/e404' component={NotFound}/>
-		<Redirect from='*' to='/e404'/>
-	</Route>
-);
 
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>
