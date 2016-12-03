@@ -1,0 +1,25 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type DataSource {
+  id: String!
+  name: String!
+  records(first: Int = 1000): [String]
+}
+
+type Mutation {
+  login(username: String!, password: String!): User
+}
+
+type Query {
+  device(id: String!): DataSource
+  user(id: String!): User
+}
+
+type User {
+  id: String!
+  username: String!
+  token: String!
+}
