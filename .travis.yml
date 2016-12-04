@@ -3,7 +3,7 @@ node_js:
   - "6.1"
 
 script:
-  - CI=true node scripts/test.js --env=jsdom --verbose
+  - CI=true node scripts/test.js --env=jsdom --verbose --coverage
 
 cache:
   yarn: true
