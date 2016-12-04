@@ -5,7 +5,7 @@ import Auth from './../modules/Auth';
 import Base from '../components/Base/Base';
 import UnauthorizedBase from '../components/Base/UnauthorizedBase';
 import Dashboard from '../components/Dashboard/Dashboard';
-import DataSource from '../components/DataSource/DataSource';
+import DataSourceGrid from '../components/DataSource/DataSourceGrid';
 import NotFound from '../components/Error/NotFound';
 
 export default (
@@ -26,7 +26,7 @@ export default (
 			}
 		}}>
 			<IndexRoute component={Dashboard}/>
-			<Route path="data-sources" component={DataSource}/>
+			<Route path="data-sources" component={DataSourceGrid}/>
 			<Route path='/e404' component={NotFound}/>
 			<Redirect from='*' to='/e404'/>
 		</Route>

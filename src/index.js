@@ -1,7 +1,7 @@
-// import DataSourceRoute from './DeviceRelayQueryConfig';
+import ApolloClient, {createNetworkInterface} from 'apollo-client';
+import {ApolloProvider} from 'react-apollo';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Relay from 'react-relay';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,14 +10,6 @@ import {green100, green500, green700} from 'material-ui/styles/colors';
 import router from './routes/index';
 
 injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
-
-Relay.injectNetworkLayer(
-	new Relay.DefaultNetworkLayer('https://adeira.loc/graphql', { //FIXME: already in babelRelayPlugin
-		headers: {
-			Authorization: 'Bearer TOKEN' //TODO
-		},
-	})
-);
 
 const muiTheme = getMuiTheme({
 	palette: {
@@ -31,7 +23,17 @@ const muiTheme = getMuiTheme({
 	},
 });
 
+const apolloClient = new ApolloClient({
+	networkInterface: createNetworkInterface({
+		uri: 'https://adeira.loc/graphql' //TODO Authorization: 'Bearer TOKEN'
+	}),
+});
+
 ReactDOM.render(
-	<MuiThemeProvider muiTheme={muiTheme}>{router}</MuiThemeProvider>,
+	<MuiThemeProvider muiTheme={muiTheme}>
+		<ApolloProvider client={apolloClient}>
+			{router}
+		</ApolloProvider>
+	</MuiThemeProvider>,
 	document.getElementById('root')
 );

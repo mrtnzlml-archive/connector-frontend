@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DataSource from './DataSource';
+import DataSourceGrid from './DataSourceGrid';
+import ApolloClient from 'apollo-client'; //FIXME: :-(
+import {ApolloProvider} from 'react-apollo';
 
 it('renders without crashing', () => {
-	const div = document.createElement('div');
 	ReactDOM.render(
-		<DataSource/>,
-		div
+		<ApolloProvider client={new ApolloClient}>
+			<DataSourceGrid/>
+		</ApolloProvider>,
+		document.createElement('div')
 	);
 });

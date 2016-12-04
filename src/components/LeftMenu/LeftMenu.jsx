@@ -1,5 +1,4 @@
 import React from 'react';
-// import Relay from 'react-relay';
 import {Link, IndexLink} from 'react-router'
 import './LeftMenu.css';
 import {List, ListItem} from 'material-ui/List';
@@ -11,9 +10,6 @@ const ACTIVE = { color: 'red' };
 
 class LeftMenu extends React.Component {
 	render() {
-
-		//console.log(this.props.dataSource);
-
 		return (
 			<div className="LeftMenu">
 				<List>
@@ -44,19 +40,4 @@ class LeftMenu extends React.Component {
 	}
 }
 
-LeftMenu.propTypes = {
-	// dataSource: React.PropTypes.object.isRequired
-};
-
 export default LeftMenu;
-// export default Relay.createContainer(LeftMenu, {
-// 	fragments: {
-// 		// Define a fragment with a name matching the `dataSource` prop expected above
-// 		dataSource: () => Relay.QL`
-//       fragment on DataSource {
-//         id,
-//         name
-//       }
-//     `
-// 	}
-// });

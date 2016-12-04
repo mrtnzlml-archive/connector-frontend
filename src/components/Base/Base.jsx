@@ -7,7 +7,7 @@ class Base extends React.Component {
 		return (
 			<div id="App">
 				<div id="sidebar">
-					<LeftMenu dataSource={this.props.dataSource}/>
+					<LeftMenu/>
 				</div>
 				<div id="body">
 
