@@ -29,7 +29,7 @@ fetch(`${SERVER}`, {
 	// Save user readable type system shorthand of schema
 	const graphQLSchema = buildClientSchema(schemaJSON.data);
 	fs.writeFileSync(
-		`${schemaPath}.graphql`,
+		`${schemaPath}.graphqls`,
 		printSchema(graphQLSchema)
 	);
 });
