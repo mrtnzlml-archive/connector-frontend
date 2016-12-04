@@ -8,7 +8,7 @@ const {
 const path = require('path');
 const schemaPath = path.join(__dirname, '../data/schema');
 
-const SERVER = 'http://adeira.loc/graphql'; //FIXME: already in index.js (?)
+const SERVER = 'http://adeira.loc/graphql'; //FIXME: already in index.js (?), also it doesn't work with self-signed HTTPS certificate
 
 // Save JSON of full schema introspection for Babel Relay Plugin to use
 fetch(`${SERVER}`, {

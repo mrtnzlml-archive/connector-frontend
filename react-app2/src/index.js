@@ -7,15 +7,14 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {green100, green500, green700} from 'material-ui/styles/colors';
-import {Router, browserHistory} from 'react-router'
-import routes from './routes/index';
+import router from './routes/index';
 
 injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
 
 Relay.injectNetworkLayer(
-	new Relay.DefaultNetworkLayer('http://adeira.loc/graphql', {
+	new Relay.DefaultNetworkLayer('https://adeira.loc/graphql', { //FIXME: already in babelRelayPlugin
 		headers: {
-			Authorization: 'Bearer ' + 'TOKEN' //TODO
+			Authorization: 'Bearer TOKEN' //TODO
 		},
 	})
 );
@@ -33,8 +32,6 @@ const muiTheme = getMuiTheme({
 });
 
 ReactDOM.render(
-	<MuiThemeProvider muiTheme={muiTheme}>
-		<Router history={browserHistory}>{routes}</Router>
-	</MuiThemeProvider>,
+	<MuiThemeProvider muiTheme={muiTheme}>{router}</MuiThemeProvider>,
 	document.getElementById('root')
 );

@@ -1,12 +1,16 @@
 import React from 'react';
+import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import LoginMutation from './../../mutations/LoginMutation'
+import Auth from './../../modules/Auth';
+import {browserHistory} from 'react-router'
 
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: '',
+			username: '', //FIXME: required!
 			password: '',
 		};
 
@@ -29,8 +33,22 @@ class LoginForm extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert(this.state.username + ' / ' + this.state.password);
 		event.preventDefault();
+
+		Relay.Store.commitUpdate(
+			new LoginMutation({
+				username: this.state.username,
+				password: this.state.password,
+			}), {
+				onSuccess: (response) => {
+					Auth.authenticateUser(response.login.token); //FIXME: this doesn't seems to be right
+					browserHistory.push('/'); //redirect to the homepage
+				},
+				onFailure: (transaction) => {
+					console.error(transaction.getError().source); //TODO: better error messages handling
+				}
+			}
+		);
 	}
 
 	render() {

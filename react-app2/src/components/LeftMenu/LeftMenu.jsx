@@ -1,13 +1,13 @@
 import React from 'react';
 // import Relay from 'react-relay';
-import {Link} from 'react-router'
-
+import {Link, IndexLink} from 'react-router'
 import './LeftMenu.css';
-
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+
+const ACTIVE = { color: 'red' };
 
 class LeftMenu extends React.Component {
 	render() {
@@ -18,11 +18,11 @@ class LeftMenu extends React.Component {
 			<div className="LeftMenu">
 				<List>
 					<Subheader>Adeira<strong>:connector</strong></Subheader>
-					<Link to="/">
+					<IndexLink to="/" activeStyle={ACTIVE}>
 						<ListItem
 							primaryText="Dashboard"
 						/>
-					</Link>
+					</IndexLink>
 					<Link to="/data-sources">
 						<ListItem
 							primaryText="Data Sources"

@@ -28,6 +28,7 @@ export default class extends React.Component {
 	render() {
 		return (
 			<div>
+				<h2>Data Sources</h2>
 				<p>Welcome to the Dashboard!</p>
 				<p>It is {this.state.date.toLocaleTimeString()}.</p>
 			</div>

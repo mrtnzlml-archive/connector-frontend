@@ -1,6 +1,9 @@
 import Relay from 'react-relay';
 
 export default class extends Relay.Route {
+
+	static routeName = 'DataSourceRoute';
+
 	static queries = {
 		dataSource: () => Relay.QL`
 			query {
@@ -8,12 +11,11 @@ export default class extends Relay.Route {
 			}
 		`,
 	};
+
 	static paramDefinitions = {
-		// By setting `required` to true, `ProfileRoute` will throw if a `deviceId`
-		// is not supplied when instantiated.
 		deviceId: {
 			required: true
 		},
 	};
-	static routeName = 'DataSourceRoute';
+
 }
