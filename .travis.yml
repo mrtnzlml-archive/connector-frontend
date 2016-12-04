@@ -2,32 +2,12 @@ language: node_js
 node_js:
   - "6.1"
 
-addons:
-  sauce_connect: true
-
-before_script:
-  - npm install -g bower
-  - npm install -g web-component-tester
-  - bower install
-
 script:
-  - npm run-script testSauce
-
-before_deploy:
-  - rm -r node_modules
-  - rm -r test
-
-#deploy:
-#  provider: s3
-#  access_key_id: $AWS_ACCESS_KEY_ID
-#  secret_access_key: $AWS_SECRET_ACCESS_KEY
-#  bucket: "adeira-frontend"
-#  skip_cleanup: true
-#  region: eu-central-1
+  - CI=true node scripts/test.js --env=jsdom --verbose
 
 cache:
+  yarn: true
   directories:
-    - bower_components
     - node_modules
 
 notifications:
