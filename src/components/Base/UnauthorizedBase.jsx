@@ -1,5 +1,5 @@
 import React from 'react';
-import './Base.css';
+import './AuthorizedBase.css';
 import LoginForm from '../LoginForm/LoginForm';
 
 class UnauthorizedBase extends React.Component {

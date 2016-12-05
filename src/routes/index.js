@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect, Route, IndexRoute} from 'react-router'
 import {Router, browserHistory} from 'react-router'
 import Auth from './../modules/Auth';
-import Base from '../components/Base/Base';
+import AuthorizedBase from '../components/Base/AuthorizedBase';
 import UnauthorizedBase from '../components/Base/UnauthorizedBase';
 import Dashboard from '../components/Dashboard/Dashboard';
 import DataSourceGrid from '../components/DataSource/DataSourceGrid';
@@ -20,7 +20,7 @@ export default (
 
 		<Route path="/" getComponent={(nextState, callback) => {
 			if (Auth.isUserAuthenticated()) {
-				callback(null, Base); //callback signature: (err, component)
+				callback(null, AuthorizedBase); //callback signature: (err, component)
 			} else {
 				browserHistory.push('/login');
 			}

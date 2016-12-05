@@ -1,6 +1,6 @@
 import React from 'react';
 import LeftMenu from '../LeftMenu/LeftMenu';
-import './Base.css';
+import './AuthorizedBase.css';
 
 class Base extends React.Component {
 	render() {
