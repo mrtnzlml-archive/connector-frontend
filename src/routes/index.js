@@ -10,6 +10,9 @@ const routes = {
 				cb(null, require('../components/Base/AuthorizedBase').default); //callback signature: (err, component)
 			});
 		} else {
+			if (nextState.location.pathname !== '/login') {
+				browserHistory.push('/login');
+			}
 			require.ensure([], require => {
 				cb(null, require('../components/Base/UnauthorizedBase').default);
 			});
@@ -17,9 +20,7 @@ const routes = {
 	},
 	onEnter(nextState, replace) {
 		let pathname = nextState.location.pathname;
-		if (!Auth.isUserAuthenticated() && pathname !== '/login') {
-			replace('/login');
-		} else if (pathname !== '/') {
+		if (Auth.isUserAuthenticated() && pathname === '/login') {
 			replace('/');
 		}
 	},
