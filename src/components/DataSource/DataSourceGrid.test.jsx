@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DataSourceGrid from './DataSourceGrid';
+import DataSourceGrid from './DataSourcesContainer';
 import ApolloClient from 'apollo-client'; //FIXME: :-(
 import {ApolloProvider} from 'react-apollo';
 

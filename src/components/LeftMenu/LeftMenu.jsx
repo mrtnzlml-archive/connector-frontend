@@ -3,8 +3,8 @@ import {Link, IndexLink} from 'react-router'
 import './LeftMenu.css';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
+// import Divider from 'material-ui/Divider';
+// import Checkbox from 'material-ui/Checkbox';
 
 const ACTIVE = { color: 'red' };
 
@@ -26,7 +26,7 @@ class LeftMenu extends React.Component {
 						/>
 					</Link>
 				</List>
-				<Divider/>
+{/*			<Divider/>
 				<List>
 					<Subheader>Hangout Notifications</Subheader>
 					<ListItem
@@ -34,7 +34,7 @@ class LeftMenu extends React.Component {
 						primaryText="Notifications"
 						secondaryText="Allow notifications"
 					/>
-				</List>
+				</List>*/}
 			</div>
 		);
 	}

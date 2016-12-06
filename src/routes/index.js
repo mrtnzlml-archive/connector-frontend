@@ -39,7 +39,7 @@ const routes = {
 			path: 'data-sources',
 			getComponent(nextState, cb) {
 				require.ensure([], require => {
-					cb(null, require('../components/DataSource/DataSourceGrid').default);
+					cb(null, require('../components/DataSource/DataSourcesContainer').default);
 				});
 			}
 		},
