@@ -1,34 +1,64 @@
 import React from 'react';
-import {Redirect, Route, IndexRoute} from 'react-router'
 import {Router, browserHistory} from 'react-router'
 import Auth from './../modules/Auth';
-import AuthorizedBase from '../components/Base/AuthorizedBase';
-import UnauthorizedBase from '../components/Base/UnauthorizedBase';
-import Dashboard from '../components/Dashboard/Dashboard';
-import DataSourceGrid from '../components/DataSource/DataSourceGrid';
-import NotFound from '../components/Error/NotFound';
+
+const routes = {
+	path: '/',
+	getComponent(nextState, cb) {
+		if (Auth.isUserAuthenticated()) {
+			require.ensure([], require => { //code splitting
+				cb(null, require('../components/Base/AuthorizedBase').default); //callback signature: (err, component)
+			});
+		} else {
+			require.ensure([], require => {
+				cb(null, require('../components/Base/UnauthorizedBase').default);
+			});
+		}
+	},
+	onEnter(nextState, replace) {
+		let pathname = nextState.location.pathname;
+		if (!Auth.isUserAuthenticated() && pathname !== '/login') {
+			replace('/login');
+		} else if (pathname !== '/') {
+			replace('/');
+		}
+	},
+	indexRoute: {
+		getComponent(nextState, cb) {
+			require.ensure([], require => {
+				cb(null, require('../components/Dashboard/Dashboard').default);
+			});
+		}
+	},
+	childRoutes: [
+		{
+			path: 'login'
+		},
+		{
+			path: 'data-sources',
+			getComponent(nextState, cb) {
+				require.ensure([], require => {
+					cb(null, require('../components/DataSource/DataSourceGrid').default);
+				});
+			}
+		},
+		{
+			path: 'e404',
+			getComponent(nextState, cb) {
+				require.ensure([], require => {
+					cb(null, require('../components/Error/NotFound').default);
+				});
+			}
+		},
+		{
+			path: '*',
+			onEnter(nextState, replace) {
+				replace('/e404');
+			},
+		}
+	],
+};
 
 export default (
-	<Router history={browserHistory}>
-		<Route path="/login" getComponent={(nextState, callback) => {
-			if (Auth.isUserAuthenticated()) {
-				browserHistory.push('/');
-			} else {
-				callback(null, UnauthorizedBase); //callback signature: (err, component)
-			}
-		}}/>
-
-		<Route path="/" getComponent={(nextState, callback) => {
-			if (Auth.isUserAuthenticated()) {
-				callback(null, AuthorizedBase); //callback signature: (err, component)
-			} else {
-				browserHistory.push('/login');
-			}
-		}}>
-			<IndexRoute component={Dashboard}/>
-			<Route path="data-sources" component={DataSourceGrid}/>
-			<Route path='/e404' component={NotFound}/>
-			<Redirect from='*' to='/e404'/>
-		</Route>
-	</Router>
+	<Router history={browserHistory} routes={routes}/>
 );
