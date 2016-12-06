@@ -1,8 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 const Row = (props) => {
 	let ds = props.dataSource;
-	return <div>{ds.name} {ds.id} ({ds.records.length} records available)</div>;
+	return <div>{ds.name} <Link to={`/data-sources/${ds.id}`}>{ds.id}</Link> ({ds.records.length} records available)
+	</div>;
 };
 
 Row.propTypes = {
