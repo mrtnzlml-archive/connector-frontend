@@ -2,7 +2,7 @@ import React from 'react';
 import LeftMenu from '../LeftMenu/LeftMenu';
 import './AuthorizedBase.css';
 
-class Base extends React.Component {
+export default class extends React.Component {
 	render() {
 		return (
 			<div id="App">
@@ -18,5 +18,3 @@ class Base extends React.Component {
 		);
 	}
 }
-
-export default Base;
