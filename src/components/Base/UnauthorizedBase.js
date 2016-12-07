@@ -1,6 +1,6 @@
 import React from 'react';
 import './AuthorizedBase.css';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from '../../scenes/Sign/Login/Form';
 
 class UnauthorizedBase extends React.Component {
 	render() {

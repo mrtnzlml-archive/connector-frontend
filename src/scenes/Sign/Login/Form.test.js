@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from './LoginForm';
+import LoginForm from './Form';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; //FIXME: only because of Material-UI
 import ApolloClient from 'apollo-client'; //FIXME: :-(
