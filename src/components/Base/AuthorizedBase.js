@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftMenu from '../LeftMenu/LeftMenu';
+import LeftMenu from '../../scenes/Dashboard/components/LeftMenu/LeftMenu';
 import './AuthorizedBase.css';
 
 export default class extends React.Component {
