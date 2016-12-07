@@ -1,10 +1,10 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import Row from './DataSourceGridRow';
 
 const DataSourcesContainer = (props) => {
-	let {data: {loading, devices}} = props;
+	//let {data: {loading, devices}} = props;
+	let {data: {loading}} = props;
 	console.log(props.routeParams.id); //TODO: validace (pokud GraphQL vrátí NULL, tak přesměrovat s upozorněním?)!
 	return loading ? null :
 		<div>

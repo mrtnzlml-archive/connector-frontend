@@ -39,7 +39,7 @@ const routes = {
 			path: 'data-sources',
 			getComponent(nextState, cb) {
 				require.ensure([], require => {
-					cb(null, require('../components/DataSource/DataSourcesContainer').default);
+					cb(null, require('./../scenes/Dashboard/scenes/DataSources/DataSourcesContainer').default);
 				});
 			}
 		},
@@ -47,7 +47,7 @@ const routes = {
 			path: 'data-sources/:id',
 			getComponent(nextState, cb) {
 				require.ensure([], require => {
-					cb(null, require('../components/DataSource/DataSourceContainer').default);
+					cb(null, require('./../scenes/Dashboard/scenes/DataSources/DataSourceContainer').default);
 				});
 			}
 		},
