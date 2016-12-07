@@ -55,7 +55,7 @@ const routes = {
 			path: 'e404',
 			getComponent(nextState, cb) {
 				require.ensure([], require => {
-					cb(null, require('../components/Error/NotFound').default);
+					cb(null, require('./../scenes/Error/NotFound').default);
 				});
 			}
 		},
