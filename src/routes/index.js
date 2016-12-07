@@ -1,6 +1,6 @@
 import React from 'react';
 import {Router, browserHistory} from 'react-router'
-import Auth from '../services/Auth';
+import Auth from '../services/Authenticator';
 
 const routes = {
 	path: '/',

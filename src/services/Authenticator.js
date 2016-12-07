@@ -1,4 +1,4 @@
-class Auth {
+class Authenticator {
 
 	/**
 	 * Authenticate a user. Save a token string in Local Storage
@@ -42,4 +42,4 @@ class Auth {
 
 }
 
-export default Auth;
+export default Authenticator;
