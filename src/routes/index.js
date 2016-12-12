@@ -35,22 +35,7 @@ const routes = {
 		{
 			path: 'login'
 		},
-		{
-			path: 'data-sources',
-			getComponent(nextState, cb) {
-				require.ensure([], require => {
-					cb(null, require('./../scenes/Dashboard/scenes/DataSources/DataSourcesContainer').default);
-				});
-			}
-		},
-		{
-			path: 'data-sources/:id',
-			getComponent(nextState, cb) {
-				require.ensure([], require => {
-					cb(null, require('./../scenes/Dashboard/scenes/DataSources/DataSourceContainer').default);
-				});
-			}
-		},
+		...require('./../scenes/Dashboard/routes').default,
 		{
 			path: 'e404',
 			getComponent(nextState, cb) {
