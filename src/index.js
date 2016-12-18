@@ -8,6 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {green100, green500, green700} from 'material-ui/styles/colors';
 import router from './routes/index';
+import Authenticator from './services/Authenticator';
 
 injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
 
@@ -23,10 +24,25 @@ const muiTheme = getMuiTheme({
 	},
 });
 
+const networkInterface = createNetworkInterface({
+	uri: 'https://adeira.loc/graphql'
+});
+
+networkInterface.use([{
+	applyMiddleware(req, next) {
+		if (!req.options.headers) {
+			req.options.headers = {};  // Create the header object if needed.
+		}
+		let token = Authenticator.getToken();
+		if (token !== null) {
+			req.options.headers.authorization = token;
+		}
+		next();
+	}
+}]);
+
 const apolloClient = new ApolloClient({
-	networkInterface: createNetworkInterface({
-		uri: 'https://adeira.loc/graphql' //TODO Authorization: 'Bearer TOKEN'
-	}),
+	networkInterface,
 });
 
 ReactDOM.render(

@@ -37,7 +37,7 @@ class Authenticator {
 	 * Get a token value.
 	 */
 	static getToken() {
-		return localStorage.getItem('token');
+		return localStorage.getItem('token') ? localStorage.getItem('token') : null;
 	}
 
 }
