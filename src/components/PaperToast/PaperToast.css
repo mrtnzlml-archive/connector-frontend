@@ -1,4 +1,4 @@
-#PaperToast {
+.PaperToast {
     display: block;
     position: absolute;
     bottom: 0;
@@ -11,9 +11,13 @@
     box-sizing: border-box;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     border-radius: 2px;
-    margin: 12px 24px;
+    margin: 24px 48px;
     font-size: 14px;
     cursor: default;
     -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
     transition: transform 0.3s, opacity 0.3s;
+}
+
+.PaperToast--error {
+    background-color: maroon;
 }

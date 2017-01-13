@@ -3,7 +3,9 @@ import PaperToast from './PaperToast'
 
 const mapStateToProps = (storeState) => {
 	return {
-		message: storeState.message
+		error: storeState.error,
+		timestamp: storeState.timestamp,
+		message: storeState.message,
 	}
 };
 

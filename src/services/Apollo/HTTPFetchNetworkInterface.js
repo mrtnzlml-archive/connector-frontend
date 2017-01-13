@@ -1,6 +1,6 @@
 import {print} from 'graphql-tag/printer';
 import Authenticator from '../../services/Authenticator';
-import {showMessage} from '../../components/PaperToast/Actions'
+import {showMessage, showErrorMessage} from '../../components/PaperToast/Actions'
 import ReduxStore from '../../services/ReduxStore';
 
 export default class HTTPFetchNetworkInterface {
@@ -35,6 +35,11 @@ export default class HTTPFetchNetworkInterface {
 				}
 			}
 			return json;
+		}).catch(function (err) {
+			ReduxStore.dispatch(showErrorMessage('Backend API server is not reachable... :-('));
+			return {
+				errors: [{message: err}]
+			}
 		});
 	}
 }
