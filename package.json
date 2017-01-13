@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "apollo-client": "^0.5.10",
+    "apollo-client": "^0.7.0",
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",
     "babel-eslint": "7.0.0",
@@ -39,7 +39,7 @@
     "path-exists": "2.1.0",
     "postcss-loader": "1.0.0",
     "promise": "7.1.1",
-    "react-apollo": "^0.6.0",
+    "react-apollo": "^0.8.0",
     "react-dev-utils": "^0.3.0",
     "recursive-readdir": "2.1.0",
     "rimraf": "2.5.4",
@@ -59,7 +59,7 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
-    "start": "HTTPS=true HOST=adeira.loc node scripts/start.js",
+    "start": "HTTPS=false HOST=adeira.loc node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
