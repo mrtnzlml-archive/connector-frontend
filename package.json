@@ -61,7 +61,7 @@
     "redux": "^3.6.0"
   },
   "scripts": {
-    "start": "HTTPS=false HOST=adeira.loc node scripts/start.js",
+    "start": "HTTPS=false HOST=127.0.0.1 PORT=1234 node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
