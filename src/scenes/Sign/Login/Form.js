@@ -43,9 +43,7 @@ class LoginForm extends React.Component {
 		}).then((response) => {
 			Auth.authenticateUser(response.data.login.token); //FIXME: this doesn't seems to be right
 			browserHistory.push('/'); //redirect to the homepage
-		}).catch((error) => {
-			console.error(error.message); //TODO: better error messages handling
-		})
+		});
 	}
 
 	render() {
