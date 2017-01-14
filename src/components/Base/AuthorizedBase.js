@@ -1,8 +1,16 @@
 import React from 'react';
 import LeftMenu from '../../scenes/Dashboard/components/LeftMenu/LeftMenu';
 import './AuthorizedBase.css';
+import MuiTheme from '../../services/MaterialUI/MuiTheme';
 
-export default class extends React.Component {
+class AuthorizedBase extends React.Component {
+
+	getChildContext() {
+		return {
+			muiTheme: MuiTheme,
+		}
+	};
+
 	render() {
 		return (
 			<div id="App">
@@ -17,4 +25,11 @@ export default class extends React.Component {
 			</div>
 		);
 	}
+
 }
+
+AuthorizedBase.childContextTypes = {
+	muiTheme: React.PropTypes.object,
+};
+
+export default AuthorizedBase;
