@@ -52,6 +52,8 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "formsy-material-ui": "^0.5.3",
+    "formsy-react": "^0.19.0",
     "material-ui": "^0.16.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",

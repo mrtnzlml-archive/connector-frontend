@@ -1,58 +1,69 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Auth from '../../../services/Authenticator';
 import {browserHistory} from 'react-router'
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
+import Formsy from 'formsy-react';
+import {FormsyText} from 'formsy-material-ui/lib';
 
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: '', //FIXME: required!
-			password: '',
+			canSubmit: false,
 		};
 
-		// This binding is necessary to make `this` work in the callback
-		this.handleChangeUsername = this.handleChangeUsername.bind(this);
-		this.handleChangePassword = this.handleChangePassword.bind(this);
+		// This binding is necessary to make 'this' work in the callback
+		this.enableButton = this.enableButton.bind(this);
+		this.disableButton = this.disableButton.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleChangeUsername(event) {
+	enableButton() {
 		this.setState({
-			username: event.target.value
+			canSubmit: true,
 		});
-	}
+	};
 
-	handleChangePassword(event) {
+	disableButton() {
 		this.setState({
-			password: event.target.value
+			canSubmit: false,
 		});
-	}
+	};
 
-	handleSubmit(event) {
-		event.preventDefault();
-
+	handleSubmit(formValues) {
 		this.props.mutate({
 			variables: {
-				username: this.state.username,
-				password: this.state.password,
+				username: formValues.username,
+				password: formValues.password,
 			}
 		}).then((response) => {
-			Auth.authenticateUser(response.data.login.token); //FIXME: this doesn't seems to be right
+			Auth.authenticateUser(response.data.login.token);
 			browserHistory.push('/'); //redirect to the homepage
 		});
 	}
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<TextField type="text" floatingLabelText="Username" value={this.state.username} onChange={this.handleChangeUsername}/><br/>
-				<TextField type="password" floatingLabelText="Password" value={this.state.password} onChange={this.handleChangePassword}/><br/>
-				<RaisedButton type="submit" label="Sign In" primary={true}/>
-			</form>
+			<Formsy.Form onValid={this.enableButton}
+			             onInvalid={this.disableButton}
+			             onValidSubmit={this.handleSubmit}>
+
+				<FormsyText name="username"
+				            type="text"
+				            required
+				            hintText="What is your username?"
+				            floatingLabelText="Username"/>
+
+				<FormsyText name="password"
+				            type="password"
+				            required
+				            hintText="What is your password?"
+				            floatingLabelText="Password"/>
+
+				<RaisedButton type="submit" label="Log In" primary={true} disabled={!this.state.canSubmit}/>
+			</Formsy.Form>
 		);
 	}
 }
