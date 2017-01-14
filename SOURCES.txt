@@ -1,0 +1,7 @@
+https://webpack.github.io/docs/code-splitting.html
+https://blog.madewithlove.be/post/webpack-your-bags/
+https://meowni.ca/posts/polymer-cheatsheet/
+
+Server-side render: Proof of concept
+https://github.com/facebookincubator/create-react-app/pull/172/files
+https://github.com/webpack/react-webpack-server-side-example
