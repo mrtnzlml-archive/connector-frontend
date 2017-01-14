@@ -14,7 +14,7 @@ class UnauthorizedBase extends React.Component {
 
 	render() {
 		return (
-			<div id="App">
+			<div id="UnApp">
 				<h2>Please log in</h2>
 				<LoginForm/>
 				<PaperToastContainer/>
