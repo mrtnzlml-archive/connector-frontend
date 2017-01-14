@@ -9,7 +9,7 @@ import HTTPFetchNetworkInterface from './services/Apollo/HTTPFetchNetworkInterfa
 import {Provider} from 'react-redux'
 import ReduxStore from './services/ReduxStore';
 
-injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/34015469/988941)
+injectTapEventPlugin(); // needed for onTouchTap (https://github.com/callemall/material-ui#react-tap-event-plugin)
 
 const apolloClient = new ApolloClient({
 	networkInterface: new HTTPFetchNetworkInterface('//connector.adeira.localhost/graphql'), //FIXME: config
