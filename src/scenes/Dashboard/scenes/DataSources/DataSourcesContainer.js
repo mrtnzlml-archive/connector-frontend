@@ -19,9 +19,11 @@ const DataSourcesContainer = (props) => {
 export default graphql(gql`
   query {
     devices {
-      id,
-      name,
-      records
+      id
+      name
+      records {
+	      id
+      }
     }
   }
 `)(DataSourcesContainer);
