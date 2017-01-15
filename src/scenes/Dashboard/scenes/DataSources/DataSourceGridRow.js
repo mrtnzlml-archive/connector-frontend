@@ -11,7 +11,10 @@ Row.propTypes = {
 	dataSource: React.PropTypes.shape({
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
-		records: React.PropTypes.arrayOf(React.PropTypes.string)
+		records: React.PropTypes.array,
+		// records: React.PropTypes.shape({
+		// 	id: React.PropTypes.string
+		// })
 	}).isRequired,
 };
 
