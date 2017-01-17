@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LeftMenu from './LeftMenu';
+import Header from './Header';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; //FIXME: only because of Material-UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -9,7 +9,7 @@ injectTapEventPlugin(); // needed for onTouchTap (http://stackoverflow.com/a/340
 it('renders without crashing', () => {
 	ReactDOM.render(
 		<MuiThemeProvider>
-			<LeftMenu/>
+			<Header/>
 		</MuiThemeProvider>,
 		document.createElement('div')
 	);

@@ -9,3 +9,24 @@ body {
     font-size: 1.8rem;
     font-family: sans-serif;
 }
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    border-bottom: 1px dotted;
+    padding-bottom: 1px;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.wrapper--fluid {
+    width: 100%;
+    margin-left: 5rem;
+}

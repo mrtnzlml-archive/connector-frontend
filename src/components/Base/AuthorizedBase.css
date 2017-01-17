@@ -1,14 +1,6 @@
 #App {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 2% 5%;
 }
 
-#sidebar {
-}
-
-#body {
-    flex-grow: 1;
-    margin-left: 2%;
+#App__content {
+    margin-top: 4rem;
 }

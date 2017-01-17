@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftMenu from '../../scenes/Dashboard/components/LeftMenu/LeftMenu';
+import Header from '../../scenes/Dashboard/components/Header/Header';
 import './AuthorizedBase.css';
 import MuiTheme from '../../services/MaterialUI/MuiTheme';
 
@@ -14,13 +14,11 @@ class AuthorizedBase extends React.Component {
 	render() {
 		return (
 			<div id="App">
-				<div id="sidebar">
-					<LeftMenu/>
-				</div>
-				<div id="body">
-
-					{this.props.children}
-
+				<Header/>
+				<div className="wrapper--fluid">
+					<div id="App__content">
+						{this.props.children}
+					</div>
 				</div>
 			</div>
 		);

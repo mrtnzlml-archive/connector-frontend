@@ -7,7 +7,6 @@ const DataSourcesContainer = (props) => {
 	let {data: {loading, allStations}} = props;
 	return loading ? null :
 		<div>
-			<h2>Data Sources</h2>
 			{allStations.stations.map(dataSource =>
 				<Row key={dataSource.id} dataSource={dataSource}/>
 			)}
