@@ -1,16 +1,16 @@
 export default [
 	{
-		path: 'data-sources',
+		path: 'weather-stations',
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('./../scenes/DataSources/DataSourcesContainer').default);
+				cb(null, require('./../scenes/WeatherStations/AllWeatherStationsContainer').default);
 			});
 		}
 	}, {
-		path: 'data-sources/:id',
+		path: 'weather-stations/:id',
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('./../scenes/DataSources/DataSourceContainer').default);
+				cb(null, require('./../scenes/WeatherStations/DataSourceContainer').default);
 			});
 		}
 	}

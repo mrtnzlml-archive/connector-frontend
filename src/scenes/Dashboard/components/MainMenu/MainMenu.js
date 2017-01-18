@@ -14,7 +14,7 @@ class MainMenu extends React.Component {
 							</IndexLink>
 						</li>
 						<li>
-							<Link to="/data-sources" activeClassName="active">
+							<Link to="/weather-stations" activeClassName="active">
 								Weather stations
 							</Link>
 						</li>

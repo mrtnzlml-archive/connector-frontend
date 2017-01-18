@@ -1,0 +1,14 @@
+.WeatherStationPreview {
+    border: 1px solid #eee;
+    border-radius: 1px;
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.WeatherStationPreview h3, p {
+    margin: 0;
+}
+
+.WeatherStationPreview h3 > small {
+    color: #888;
+}

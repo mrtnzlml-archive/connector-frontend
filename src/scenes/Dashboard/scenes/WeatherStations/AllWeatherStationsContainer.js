@@ -1,14 +1,14 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import Row from './DataSourceGridRow';
+import WeatherStation from './WeatherStation';
 
-const DataSourcesContainer = (props) => {
+const AllWeatherStationsContainer = (props) => {
 	let {data: {loading, allStations}} = props;
 	return loading ? null :
 		<div>
 			{allStations.stations.map(dataSource =>
-				<Row key={dataSource.id} dataSource={dataSource}/>
+				<WeatherStation key={dataSource.id} dataSource={dataSource}/>
 			)}
 		</div>;
 };
@@ -25,4 +25,4 @@ export default graphql(gql`
       }
     }
   }
-`)(DataSourcesContainer);
+`)(AllWeatherStationsContainer);

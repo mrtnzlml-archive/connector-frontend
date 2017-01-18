@@ -1,13 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router';
+import './WeatherStation.css';
 
-const Row = (props) => {
+const WeatherStation = (props) => {
 	let ds = props.dataSource;
-	return <div>{ds.name} <Link to={`/data-sources/${ds.id}`}>{ds.id}</Link> ({ds.records.length} records available)
+	return <div className="WeatherStationPreview">
+		<h3>{ds.name} <small>({ds.records.length} records available)</small></h3>
+		<p>
+			UUID: <Link to={`/weather-stations/${ds.id}`}>{ds.id}</Link>
+		</p>
 	</div>;
 };
 
-Row.propTypes = {
+WeatherStation.propTypes = {
 	dataSource: React.PropTypes.shape({
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
@@ -18,4 +23,4 @@ Row.propTypes = {
 	}).isRequired,
 };
 
-export default Row;
+export default WeatherStation;

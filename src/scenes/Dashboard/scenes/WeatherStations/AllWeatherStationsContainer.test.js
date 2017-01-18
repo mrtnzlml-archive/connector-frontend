@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DataSourceGrid from './DataSourcesContainer';
+import AllWeatherStationsContainer from './AllWeatherStationsContainer';
 import ApolloClient from 'apollo-client'; //FIXME: :-(
 import {ApolloProvider} from 'react-apollo';
 
 it('renders without crashing', () => {
 	ReactDOM.render(
 		<ApolloProvider client={new ApolloClient}>
-			<DataSourceGrid/>
+			<AllWeatherStationsContainer/>
 		</ApolloProvider>,
 		document.createElement('div')
 	);
