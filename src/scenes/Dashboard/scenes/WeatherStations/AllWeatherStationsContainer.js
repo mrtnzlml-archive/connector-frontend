@@ -1,7 +1,7 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
-import gql from 'graphql-tag';
 import WeatherStation from './WeatherStation';
+import allWSQuery from './allWeatherStations.graphql';
 
 const AllWeatherStationsContainer = (props) => {
 	let {data: {loading, allStations}} = props;
@@ -21,16 +21,4 @@ const AllWeatherStationsContainer = (props) => {
 		</div>;
 };
 
-export default graphql(gql`
-  {
-    allStations: allWeatherStations {
-      stations: weatherStations {
-        id
-        name
-        records {
-          id
-        }
-      }
-    }
-  }
-`)(AllWeatherStationsContainer);
+export default graphql(allWSQuery)(AllWeatherStationsContainer);

@@ -1,0 +1,11 @@
+{
+  allStations: allWeatherStations {
+    stations: weatherStations {
+      id
+      name
+      records {
+        id
+      }
+    }
+  }
+}
