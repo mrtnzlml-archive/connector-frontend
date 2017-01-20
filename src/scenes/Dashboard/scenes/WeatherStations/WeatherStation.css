@@ -1,14 +1,20 @@
+a:hover > .WeatherStationPreview {
+    background-color: #f5f5f5;
+}
+
 .WeatherStationPreview {
     border: 1px solid #eee;
-    border-radius: 1px;
-    padding: 2rem 1rem;
+    border-left: 3px solid #2cb5e8;
+    padding: 2rem 1rem 2rem 4rem;
     margin-bottom: 1rem;
 }
 
 .WeatherStationPreview h3, p {
     margin: 0;
+    color: #333;
 }
 
-.WeatherStationPreview h3 > small {
-    color: #888;
+.WeatherStationPreview h3 {
+    font-weight: 100;
+    font-size: 3rem;
 }

@@ -5,8 +5,16 @@ import WeatherStation from './WeatherStation';
 
 const AllWeatherStationsContainer = (props) => {
 	let {data: {loading, allStations}} = props;
-	return loading ? null :
-		<div>
+
+	if (loading) {
+		return <p>Loading all weather stations&hellip;</p>;
+	}
+
+	if (!allStations.stations.length) {
+		return <p>There is not a single weather station available.</p>;
+	}
+
+	return <div>
 			{allStations.stations.map(dataSource =>
 				<WeatherStation key={dataSource.id} dataSource={dataSource}/>
 			)}

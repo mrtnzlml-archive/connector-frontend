@@ -4,12 +4,16 @@ import './WeatherStation.css';
 
 const WeatherStation = (props) => {
 	let ds = props.dataSource;
-	return <div className="WeatherStationPreview">
-		<h3>{ds.name} <small>({ds.records.length} records available)</small></h3>
-		<p>
-			UUID: <Link to={`/weather-stations/${ds.id}`}>{ds.id}</Link>
-		</p>
-	</div>;
+	return <Link to={`/weather-stations/${ds.id}`}>
+		<div className="WeatherStationPreview">
+			<h3>{ds.name}</h3>
+			<p>
+				{ds.records.length} records available
+				<br/>
+				UUID: {ds.id}
+			</p>
+		</div>
+	</Link>;
 };
 
 WeatherStation.propTypes = {
