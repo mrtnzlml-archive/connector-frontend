@@ -1,43 +1,28 @@
 [![Build Status](https://travis-ci.org/adeira/connector-frontend.svg?branch=master)](https://travis-ci.org/adeira/connector-frontend)
 
-```
-yarn install
-yarn run start
-yarn run test
-```
-
 If you want to test this application locally on your mobile phone I suggest [Ngrok](https://ngrok.com/). You can create secure tunnel to localhost like this:
 ```
 ./ngrok http 127.0.0.1:80
 ```
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Table of Contents
 
-- [Updating to New Releases](#updating-to-new-releases)
-- [Sending Feedback](#sending-feedback)
-- [Folder Structure](#folder-structure)
 - [Available Scripts](#available-scripts)
-  - [npm start](#npm-start)
-  - [npm test](#npm-test)
-  - [npm run build](#npm-run-build)
-  - [npm run eject](#npm-run-eject)
-- [Displaying Lint Output in the Editor](#displaying-lint-output-in-the-editor)
+  - [yarn run start](#yarn-start)
+  - [yarn run test](#yarn-test)
+  - [yarn run build](#yarn-run-build)
 - [Installing a Dependency](#installing-a-dependency)
 - [Importing a Component](#importing-a-component)
 - [Adding a Stylesheet](#adding-a-stylesheet)
 - [Post-Processing CSS](#post-processing-css)
 - [Adding Images and Fonts](#adding-images-and-fonts)
 - [Using the `public` Folder](#using-the-public-folder)
-- [Adding Bootstrap](#adding-bootstrap)
 - [Adding Flow](#adding-flow)
 - [Adding Custom Environment Variables](#adding-custom-environment-variables)
 - [Can I Use Decorators?](#can-i-use-decorators)
-- [Integrating with a Node Backend](#integrating-with-a-node-backend)
 - [Proxying API Requests in Development](#proxying-api-requests-in-development)
 - [Using HTTPS in Development](#using-https-in-development)
 - [Generating Dynamic `<meta>` Tags on the Server](#generating-dynamic-meta-tags-on-the-server)
@@ -57,89 +42,25 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Deployment](#deployment)
   - [Building for Relative Paths](#building-for-relative-paths)
   - [GitHub Pages](#github-pages)
-  - [Heroku](#heroku)
-  - [Modulus](#modulus)
-  - [Netlify](#netlify)
-  - [Now](#now)
-  - [Surge](#surge)
-- [Something Missing?](#something-missing)
-
-## Updating to New Releases
-
-Create React App is divided into two packages:
-
-* `create-react-app` is a global command-line utility that you use to create new projects.
-* `react-scripts` is a development dependency in the generated projects (including this one).
-
-You almost never need to update `create-react-app` itself: it delegates all the setup to `react-scripts`.
-
-When you run `create-react-app`, it always creates the project with the latest version of `react-scripts` so you’ll get all the new features and improvements in newly created apps automatically.
-
-To update an existing project to a new version of `react-scripts`, [open the changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
-
-In most cases bumping the `react-scripts` version in `package.json` and running `npm install` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md) for potential breaking changes.
-
-We commit to keeping the breaking changes minimal so you can upgrade `react-scripts` painlessly.
-
-## Sending Feedback
-
-We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
-
-## Folder Structure
-
-After creation, your project should look like this:
-
-```
-my-app/
-  README.md
-  node_modules/
-  package.json
-  public/
-    index.html
-    favicon.ico
-  src/
-    App.css
-    App.js
-    App.test.js
-    index.css
-    index.js
-    logo.svg
-```
-
-For the project to build, **these files must exist with exact filenames**:
-
-* `public/index.html` is the page template;
-* `src/index.js` is the JavaScript entry point.
-
-You can delete or rename the other files.
-
-You may create subdirectories inside `src`. For faster rebuilds, only files inside `src` are processed by Webpack.<br>
-You need to **put any JS and CSS files inside `src`**, or Webpack won’t see them.
-
-Only files inside `public` can be used from `public/index.html`.<br>
-Read instructions below for using assets from JavaScript and HTML.
-
-You can, however, create more top-level directories.<br>
-They will not be included in the production build so you can use them for things like documentation.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://127.0.0.1:1234](http://127.0.0.1:1234) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](#running-tests) for more information.
 
-### `npm run build`
+### `yarn run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -147,57 +68,12 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Displaying Lint Output in the Editor
-
->Note: this feature is available with `react-scripts@0.2.0` and higher.
-
-Some editors, including Sublime Text, Atom, and Visual Studio Code, provide plugins for ESLint.
-
-They are not required for linting. You should see the linter output right in your terminal as well as the browser console. However, if you prefer the lint results to appear right in your editor, there are some extra steps you can do.
-
-You would need to install an ESLint plugin for your editor first.
-
->**A note for Atom `linter-eslint` users**
-
->If you are using the Atom `linter-eslint` plugin, make sure that **Use global ESLint installation** option is checked:
-
-><img src="http://i.imgur.com/yVNNHJM.png" width="300">
-
-Then add this block to the `package.json` file of your project:
-
-```js
-{
-  // ...
-  "eslintConfig": {
-    "extends": "react-app"
-  }
-}
-```
-
-Finally, you will need to install some packages *globally*:
-
-```sh
-npm install -g eslint-config-react-app@0.3.0 eslint@3.8.1 babel-eslint@7.0.0 eslint-plugin-react@6.4.1 eslint-plugin-import@2.0.1 eslint-plugin-jsx-a11y@2.2.3 eslint-plugin-flowtype@2.21.0
-```
-
-We recognize that this is suboptimal, but it is currently required due to the way we hide the ESLint dependency. The ESLint team is already [working on a solution to this](https://github.com/eslint/eslint/issues/3458) so this may become unnecessary in a couple of months.
-
 ## Installing a Dependency
 
 The generated project includes React and ReactDOM as dependencies. It also includes a set of scripts used by Create React App as a development dependency. You may install other dependencies (for example, React Router) with `npm`:
 
 ```
-npm install --save <library-name>
+yarn add <library-name>
 ```
 
 ## Importing a Component
@@ -396,32 +272,6 @@ Keep in mind the downsides of this approach:
 
 However, it can be handy for referencing assets like [`manifest.webmanifest`](https://developer.mozilla.org/en-US/docs/Web/Manifest) from HTML, or including small scripts like [`pace.js`](http://github.hubspot.com/pace/docs/welcome/) outside of the bundled code.
 
-## Adding Bootstrap
-
-You don’t have to use [React Bootstrap](https://react-bootstrap.github.io) together with React but it is a popular library for integrating Bootstrap with React apps. If you need it, you can integrate it with Create React App by following these steps:
-
-Install React Bootstrap and Bootstrap from NPM. React Bootstrap does not include Bootstrap CSS so this needs to be installed as well:
-
-```
-npm install react-bootstrap --save
-npm install bootstrap@3 --save
-```
-
-Import Bootstrap CSS and optionally Bootstrap theme CSS in the ```src/index.js``` file:
-
-```js
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-```
-
-Import required React Bootstrap components within ```src/AuthorizedBase.js``` file or your custom component files:
-
-```js
-import { Navbar, Jumbotron, Button } from 'react-bootstrap';
-```
-
-Now you are ready to use the imported React Bootstrap components within your component hierarchy defined in the render method. Here is an example [`AuthorizedBase.js`](https://gist.githubusercontent.com/gaearon/85d8c067f6af1e56277c82d19fd4da7b/raw/6158dd991b67284e9fc8d70b9d973efe87659d72/App.js) redone using React Bootstrap.
-
 ## Adding Flow
 
 Flow typing is currently [not supported out of the box](https://github.com/facebookincubator/create-react-app/issues/72) with the default `.flowconfig` generated by Flow. If you run it, you might get errors like this:
@@ -554,10 +404,6 @@ Please refer to these two threads for reference:
 * [#411](https://github.com/facebookincubator/create-react-app/issues/411)
 
 Create React App will add decorator support when the specification advances to a stable stage.
-
-## Integrating with a Node Backend
-
-Check out [this tutorial](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/) for instructions on integrating an app with a Node backend running on another port, and using `fetch()` to access it. You can find the companion GitHub repository [here](https://github.com/fullstackreact/food-lookup-demo).
 
 ## Proxying API Requests in Development
 
@@ -927,70 +773,3 @@ npm run deploy
 Note that GitHub Pages doesn't support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
 * You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#histories) about different history implementations in React Router.
 * Alternatively, you can use a trick to teach GitHub Pages to handle 404 by redirecting to your `index.html` page with a special redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
-
-### Heroku
-
-Use the [Heroku Buildpack for Create React App](https://github.com/mars/create-react-app-buildpack).<br>
-You can find instructions in [Deploying React with Zero Configuration](https://blog.heroku.com/deploying-react-with-zero-configuration).
-
-### Modulus
-
-See the [Modulus blog post](http://blog.modulus.io/deploying-react-apps-on-modulus) on how to deploy your react app to Modulus.
-
-## Netlify
-
-**To do a manual deploy to Netlify's CDN:**
-
-```sh
-npm install netlify-cli
-netlify deploy
-```
-
-Choose `build` as the path to deploy.
-
-**To setup continuous delivery:**
-
-With this setup Netlify will build and deploy when you push to git or open a pull request:
-
-1. [Start a new netlify project](https://app.netlify.com/signup)
-2. Pick your Git hosting service and select your repository
-3. Click `Build your site`
-
-**Support for client-side routing:**
-
-To support `pushState`, make sure to create a `public/_redirects` file with the following rewrite rules:
-
-```
-/*  /index.html  200
-```
-
-When you build the project, Create React App will place the `public` folder contents into the build output.
-
-### Now
-
-See [this example](https://github.com/xkawi/create-react-app-now) for a zero-configuration single-command deployment with [now](https://zeit.co/now).
-
-### Surge
-
-Install the Surge CLI if you haven't already by running `npm install -g surge`. Run the `surge` command and log in you or create a new account. You just need to specify the *build* folder and your custom domain, and you are done.
-
-```sh
-              email: email@domain.com
-           password: ********
-       project path: /path/to/project/build
-               size: 7 files, 1.8 MB
-             domain: create-react-app.surge.sh
-             upload: [====================] 100%, eta: 0.0s
-   propagate on CDN: [====================] 100%
-               plan: Free
-              users: email@domain.com
-         IP Address: X.X.X.X
-
-    Success! Project is published and running at create-react-app.surge.sh
-```
-
-Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
-
-## Something Missing?
-
-If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
