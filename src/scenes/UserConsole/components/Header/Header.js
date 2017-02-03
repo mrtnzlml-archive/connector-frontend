@@ -17,6 +17,7 @@ class Header extends React.Component {
 				<div className="wrapper--fluid">
 					<h1>
 						Adeira<strong>::connector</strong>
+						<small>user console</small>
 					</h1>
 					<a className="Header__logoutLink" onClick={this.handleLogout}>
 						Log Out
