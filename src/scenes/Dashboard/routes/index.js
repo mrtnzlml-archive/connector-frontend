@@ -1,11 +1,9 @@
 export default [
 	{
 		path: 'weather-stations',
-		getComponent(nextState, cb) {
-			require.ensure([], require => {
-				cb(null, require('./../scenes/WeatherStations/AllWeatherStationsContainer').default);
-			});
-		}
+		onEnter(nextState, replace) {
+			replace('/');
+		},
 	}, {
 		path: 'weather-stations/:id',
 		getComponent(nextState, cb) {

@@ -27,7 +27,7 @@ const routes = {
 	indexRoute: {
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('./../scenes/Dashboard/scenes/Lander').default);
+				cb(null, require('./../scenes/Dashboard/scenes/WeatherStations/AllWeatherStationsContainer').default);
 			});
 		}
 	},

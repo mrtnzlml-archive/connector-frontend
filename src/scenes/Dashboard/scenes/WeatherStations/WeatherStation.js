@@ -7,11 +7,7 @@ const WeatherStation = (props) => {
 	return <Link to={`/weather-stations/${ds.id}`}>
 		<div className="WeatherStationPreview">
 			<h3>{ds.name}</h3>
-			<p>
-				{ds.records.length} records available
-				<br/>
-				UUID: {ds.id}
-			</p>
+			{/*{ds.records}*/}
 		</div>
 	</Link>;
 };
