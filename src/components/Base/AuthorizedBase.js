@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../scenes/UserConsole/components/Header/Header';
 import './AuthorizedBase.css';
 import MuiTheme from '../../services/MaterialUI/MuiTheme';
+import PaperToastContainer from '../PaperToast/PaperToastContainer';
 
 class AuthorizedBase extends React.Component {
 
@@ -20,6 +21,7 @@ class AuthorizedBase extends React.Component {
 						{this.props.children}
 					</div>
 				</div>
+				<PaperToastContainer/>
 			</div>
 		);
 	}
