@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../scenes/Dashboard/components/Header/Header';
+import Header from '../../scenes/UserConsole/components/Header/Header';
 import './AuthorizedBase.css';
 import MuiTheme from '../../services/MaterialUI/MuiTheme';
 

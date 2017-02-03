@@ -27,7 +27,7 @@ const routes = {
 	indexRoute: {
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('./../scenes/Dashboard/scenes/WeatherStations/AllWeatherStationsContainer').default);
+				cb(null, require('./../scenes/UserConsole/scenes/WeatherStations/AllWeatherStationsContainer').default);
 			});
 		}
 	},
@@ -35,7 +35,7 @@ const routes = {
 		{
 			path: 'login'
 		},
-		...require('./../scenes/Dashboard/routes').default,
+		...require('./../scenes/UserConsole/routes').default,
 		{
 			path: 'e404',
 			getComponent(nextState, cb) {
