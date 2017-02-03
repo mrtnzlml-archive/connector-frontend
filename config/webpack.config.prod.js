@@ -74,12 +74,12 @@ module.exports = {
     // We use `fallback` instead of `root` because we want `node_modules` to "win"
     // if there any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    fallback: paths.nodePaths,
+    modules: paths.nodePaths,
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: ['.js', '.json', '.jsx'],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -88,21 +88,20 @@ module.exports = {
   },
   
   module: {
-    // First, run the linter.
-    // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc
-      }
-    ],
-    loaders: [
+    rules: [
+	    // First, run the linter.
+	    // It's important to do this before Babel processes the JS.
+	    {
+		    enforce: 'pre',
+		    test: /\.(js|jsx)$/,
+		    loader: 'eslint-loader',
+		    include: paths.appSrc,
+	    },
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.
@@ -126,20 +125,23 @@ module.exports = {
         // Webpack 1.x uses Uglify plugin as a signal to minify *all* the assets
         // including CSS. This is confusing and will be removed in Webpack 2:
         // https://github.com/webpack/webpack/issues/283
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1&-autoprefixer!postcss')
+        loader: ExtractTextPlugin.extract({
+        	fallbackLoader: 'style-loader',
+	        loader: 'css-loader?importLoaders=1&-autoprefixer!postcss-loader',
+        }),
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
       // "file" loader makes sure those assets end up in the `build` folder.
       // When you `import` an asset, you get its filename.
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file',
+        loader: 'file-loader',
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
@@ -148,7 +150,7 @@ module.exports = {
       // assets smaller than specified size as data URLs to avoid requests.
       {
         test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
@@ -161,21 +163,25 @@ module.exports = {
 	    }
     ]
   },
-  
-  // We use PostCSS for autoprefixing only.
-  postcss: function() {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
-    ];
-  },
+
   plugins: [
+	  new webpack.LoaderOptionsPlugin({
+		  options: {
+			  // We use PostCSS for autoprefixing only.
+			  postcss: function() {
+				  return [
+					  autoprefixer({
+						  browsers: [
+							  '>1%',
+							  'last 4 versions',
+							  'Firefox ESR',
+							  'not ie < 9', // React doesn't support IE8 anyway
+						  ]
+					  }),
+				  ];
+			  }
+		  }
+	  }),
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In production, it will be an empty string unless you specify "homepage"

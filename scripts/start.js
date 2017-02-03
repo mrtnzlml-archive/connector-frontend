@@ -237,7 +237,7 @@ function run(port) {
 // We attempt to use the default port but if it is busy, we offer the user to
 // run on a different port. `detect()` Promise resolves to the next free port.
 detect(DEFAULT_PORT).then(port => {
-  if (port === DEFAULT_PORT) {
+  if (port == DEFAULT_PORT) {
     run(port);
     return;
   }
