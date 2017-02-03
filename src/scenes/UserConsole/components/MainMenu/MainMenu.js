@@ -1,5 +1,5 @@
 import React from 'react';
-import {IndexLink} from 'react-router';
+import {Link, IndexLink} from 'react-router';
 import './MainMenu.css';
 
 class MainMenu extends React.Component {
@@ -12,6 +12,11 @@ class MainMenu extends React.Component {
 							<IndexLink to="/" activeClassName="active">
 								Weather stations
 							</IndexLink>
+						</li>
+						<li>
+							<Link to="/cameras" activeClassName="active">
+								Cameras
+							</Link>
 						</li>
 					</ul>
 				</div>
