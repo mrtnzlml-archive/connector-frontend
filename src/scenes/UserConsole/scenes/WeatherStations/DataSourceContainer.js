@@ -1,28 +1,36 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
+import {browserHistory} from 'react-router'
 
 const DataSourcesContainer = (props) => {
 	let {data: {loading, station}} = props;
-	//console.log(props.routeParams.id); //TODO: validace (pokud GraphQL vrátí NULL, tak přesměrovat s upozorněním?)!
-	return loading ? null :
-		<div>
-			<h2>Data Source {props.routeParams.id}</h2>
-			{station.records.map(record =>
+
+	if (loading) {
+		return null;
+	}
+
+	if (!station) { //validace props.routeParams.id (?)
+		browserHistory.push('/');
+	}
+
+	return <div>
+		<h2>Weather station {station.name}</h2>
+		{station.records ? station.records.map(record =>
 				<p key={record.id}>{record.id}</p>
-			)}
-		</div>;
+			) : ''}
+	</div>;
 };
 
 export default graphql(gql`
-  query($wsId: String!) {
+  query($wsId: ID!) {
     station: weatherStation(id: $wsId) {
+		  name
       records {
-        id
+	      id
       }
     }
-  }
-`, {
+  }`, {
 	options: (props) => ({
 		variables: {
 			wsId: props.routeParams.id

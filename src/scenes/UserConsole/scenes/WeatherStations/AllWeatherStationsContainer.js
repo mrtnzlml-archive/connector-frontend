@@ -1,7 +1,8 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import WeatherStation from './WeatherStation';
-import allWSQuery from './allWeatherStations.graphql';
+import WeatherStationForm from './WeatherStationForm';
 
 const AllWeatherStationsContainer = (props) => {
 	let {data: {loading, allStations}} = props;
@@ -11,14 +12,37 @@ const AllWeatherStationsContainer = (props) => {
 	}
 
 	if (!allStations.stations.length) {
-		return <p>There is not a single weather station available.</p>;
-	}
-
-	return <div>
+		return <div>
+	 		<h2>At this place you can add and maintain all your weather stations</h2>
+	 		<p>Are you ready to add your first weather station?</p>
+	 		<WeatherStationForm series={allStations.series}/>
+	 	</div>;
+	} else {
+		return <div>
 			{allStations.stations.map(dataSource =>
-				<WeatherStation key={dataSource.id} dataSource={dataSource}/>
+				<WeatherStation key={dataSource.node.id} dataSource={dataSource.node}/>
 			)}
-		</div>;
+			<WeatherStationForm series={allStations.series}/>
+		</div>
+	}
 };
 
-export default graphql(allWSQuery)(AllWeatherStationsContainer);
+//TODO: stránkování
+export default graphql(gql`{
+  allStations: allWeatherStations {
+    stations: edges {
+      cursor
+      node {
+        id
+        name
+        records {
+          id
+        }
+      }
+    }
+    series: series {
+      id
+      name
+    }
+  }
+}`)(AllWeatherStationsContainer);
