@@ -12,7 +12,7 @@ import ReduxStore from './services/ReduxStore';
 injectTapEventPlugin(); // needed for onTouchTap (https://github.com/callemall/material-ui#react-tap-event-plugin)
 
 const apolloClient = new ApolloClient({
-	networkInterface: new HTTPFetchNetworkInterface('//connector.adeira.localhost/graphql'), //FIXME: config
+	networkInterface: new HTTPFetchNetworkInterface('//connector.adeira.loc/graphql'), //FIXME: config
 });
 
 ReactDOM.render(
