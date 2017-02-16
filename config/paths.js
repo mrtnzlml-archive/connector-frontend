@@ -24,6 +24,7 @@ var nodePaths = (process.env.NODE_PATH || '')
   .filter(Boolean)
   .map(resolveApp);
 
+nodePaths.push(appDirectory + '/src');
 nodePaths.push(appDirectory + '/node_modules');
 
 // config after eject: we're in ./config/

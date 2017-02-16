@@ -6,8 +6,8 @@ import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText, FormsySelect} from 'formsy-material-ui/lib';
 // import MenuItem from 'material-ui/MenuItem';
-import {showMessage} from '../../../../components/PaperToast/Actions';
-import ReduxStore from '../../../../services/ReduxStore';
+import {showMessage} from 'components/PaperToast/Actions';
+import ReduxStore from 'services/ReduxStore';
 
 class WeatherStationForm extends React.Component {
 

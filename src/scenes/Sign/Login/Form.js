@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Auth from '../../../services/Authenticator';
+import Auth from 'services/Authenticator';
 import {browserHistory} from 'react-router'
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AllWeatherStationsContainer from './AllWeatherStationsContainer';
-import {ApplicationContext} from '../../../../services/TestUtils';
+import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {
 	ReactDOM.render(

@@ -2,7 +2,7 @@ import React from 'react';
 import ApolloClient from 'apollo-client';
 import MockNetworkInterface from './Apollo/MockNetworkInterface';
 import {ApolloProvider} from 'react-apollo';
-import AuthorizedBase from '../components/Base/AuthorizedBase';
+import AuthorizedBase from 'components/Base/AuthorizedBase';
 import {Provider as ReduxProvider} from 'react-redux'
 import ReduxStore from './ReduxStore';
 

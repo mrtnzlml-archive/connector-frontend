@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import MainMenu from './../MainMenu/MainMenu';
-import Authenticator from './../../../../services/Authenticator'; //:-(
+import Authenticator from 'services/Authenticator';
 import {browserHistory} from 'react-router'
 
 class Header extends React.Component {

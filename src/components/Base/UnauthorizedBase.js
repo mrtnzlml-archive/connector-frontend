@@ -1,8 +1,8 @@
 import React from 'react';
 import './UnauthorizedBase.css';
-import LoginForm from '../../scenes/Sign/Login/Form';
-import PaperToastContainer from '../PaperToast/PaperToastContainer';
-import MuiTheme from '../../services/MaterialUI/MuiTheme';
+import LoginForm from 'scenes/Sign/Login/Form';
+import PaperToastContainer from 'components/PaperToast/PaperToastContainer';
+import MuiTheme from 'services/MaterialUI/MuiTheme';
 
 class UnauthorizedBase extends React.Component {
 

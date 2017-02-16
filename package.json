@@ -74,6 +74,10 @@
       "js",
       "json"
     ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleNameMapper": {
       "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/FileStub.js",
       "^.+\\.css$": "<rootDir>/config/jest/CSSStub.js"
@@ -96,7 +100,12 @@
         "env",
         {
           "targets": {
-            "browsers": [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"]
+            "browsers": [
+              ">1%",
+              "last 4 versions",
+              "Firefox ESR",
+              "not ie < 9"
+            ]
           },
           "loose": true,
           "modules": false

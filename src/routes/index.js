@@ -1,20 +1,20 @@
 import React from 'react';
 import {Router, browserHistory} from 'react-router'
-import Auth from '../services/Authenticator';
+import Auth from 'services/Authenticator';
 
 const routes = {
 	path: '/',
 	getComponent(nextState, cb) {
 		if (Auth.isUserAuthenticated()) {
 			require.ensure([], require => { //code splitting
-				cb(null, require('../components/Base/AuthorizedBase').default); //callback signature: (err, component)
+				cb(null, require('components/Base/AuthorizedBase').default); //callback signature: (err, component)
 			});
 		} else {
 			if (nextState.location.pathname !== '/login') {
 				browserHistory.push('/login');
 			}
 			require.ensure([], require => {
-				cb(null, require('../components/Base/UnauthorizedBase').default);
+				cb(null, require('components/Base/UnauthorizedBase').default);
 			});
 		}
 	},
@@ -27,7 +27,7 @@ const routes = {
 	indexRoute: {
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('./../scenes/UserConsole/scenes/WeatherStations/AllWeatherStationsContainer').default);
+				cb(null, require('scenes/UserConsole/scenes/WeatherStations/AllWeatherStationsContainer').default);
 			});
 		}
 	},
@@ -35,12 +35,12 @@ const routes = {
 		{
 			path: 'login'
 		},
-		...require('./../scenes/UserConsole/routes').default,
+		...require('scenes/UserConsole/routes').default,
 		{
 			path: 'e404',
 			getComponent(nextState, cb) {
 				require.ensure([], require => {
-					cb(null, require('./../scenes/Error/NotFound').default);
+					cb(null, require('scenes/Error/NotFound').default);
 				});
 			}
 		},
