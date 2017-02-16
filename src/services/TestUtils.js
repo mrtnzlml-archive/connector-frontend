@@ -9,14 +9,10 @@ import ReduxStore from './ReduxStore';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin(); // needed for onTouchTap (https://github.com/callemall/material-ui#react-tap-event-plugin)
 
-function mockNetworkInterface(...mockedResponses) {
-	return new MockNetworkInterface(...mockedResponses);
-}
-
 export class ApplicationContext extends React.Component {
 	render() {
 		return <ReduxProvider store={ReduxStore}>
-			<MockApolloProvider>
+			<MockApolloProvider graphqlResponse={this.props.graphqlResponse}>
 				<AuthorizedBase>
 					{this.props.children}
 				</AuthorizedBase>
@@ -28,16 +24,12 @@ export class ApplicationContext extends React.Component {
 // See: https://github.com/apollographql/react-apollo/blob/master/examples/create-react-app/src/Pokemon.test.js
 export class MockApolloProvider extends React.Component {
 
-	constructor(props, context) {
-		super(props, context);
-
-		const networkInterface = mockNetworkInterface.apply(null, this.props.mocks);
-		this.client = new ApolloClient({networkInterface});
-	}
-
 	render() {
 		return (
-			<ApolloProvider client={this.client}>
+			<ApolloProvider client={new ApolloClient({
+				networkInterface: new MockNetworkInterface(this.props.graphqlResponse),
+				addTypename: false //do not require '__typename' fields in response
+			})}>
 				{this.props.children}
 			</ApolloProvider>
 		);
