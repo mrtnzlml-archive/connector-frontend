@@ -26,7 +26,7 @@ export default graphql(gql`
   query($wsId: ID!) {
     station: weatherStation(id: $wsId) {
 		  name
-      records {
+      records: allRecords(first: 100) {
 	      id
       }
     }

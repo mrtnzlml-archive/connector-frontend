@@ -13,14 +13,21 @@ const AllWeatherStationsContainer = (props) => {
 
 	if (!allStations.stations.length) {
 		return <div>
-	 		<h2>At this place you can add and maintain all your weather stations</h2>
-	 		<p>Are you ready to add your first weather station?</p>
-	 		<WeatherStationForm series={allStations.series}/>
-	 	</div>;
+			<h2>At this place you can add and maintain all your weather stations</h2>
+			<p>Are you ready to add your first weather station?</p>
+			<WeatherStationForm series={allStations.series}/>
+		</div>;
 	} else {
 		return <div>
 			{allStations.stations.map(dataSource =>
-				<WeatherStation key={dataSource.node.id} dataSource={dataSource.node}/>
+				<WeatherStation
+					key={dataSource.node.id}
+					id={dataSource.node.id}
+					name={dataSource.node.name}
+					lastRecord={dataSource.node.records ? dataSource.node.records[0] : { //defaults
+							indoorTemperature: null
+						}}
+				/>
 			)}
 			<WeatherStationForm series={allStations.series}/>
 		</div>
@@ -35,8 +42,8 @@ export default graphql(gql`{
       node {
         id
         name
-        records {
-          id
+        records: allRecords(first: 1) {
+          indoorTemperature
         }
       }
     }
