@@ -11,11 +11,13 @@ const AllWeatherStationsContainer = (props) => {
 		return <p>Loading all weather stations&hellip;</p>;
 	}
 
+	let weatherStationForm = <WeatherStationForm series={allStations.series}/>;
+
 	if (!allStations.stations.length) {
 		return <div>
 			<h2>At this place you can add and maintain all your weather stations</h2>
 			<p>Are you ready to add your first weather station?</p>
-			<WeatherStationForm series={allStations.series}/>
+			{weatherStationForm}
 		</div>;
 	} else {
 		return <div>
@@ -29,7 +31,7 @@ const AllWeatherStationsContainer = (props) => {
 						}}
 				/>
 			)}
-			<WeatherStationForm series={allStations.series}/>
+			{weatherStationForm}
 		</div>
 	}
 };
