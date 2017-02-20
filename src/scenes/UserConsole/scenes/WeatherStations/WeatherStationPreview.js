@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
-import './WeatherStation.css';
+import './WeatherStationPreview.css';
 
-const WeatherStation = (props) => {
+const WeatherStationPreview = (props) => {
 
 	//console.log(props.lastRecord); //TODO
 
@@ -13,7 +13,7 @@ const WeatherStation = (props) => {
 	</Link>;
 };
 
-WeatherStation.propTypes = {
+WeatherStationPreview.propTypes = {
 	id: React.PropTypes.string.isRequired,
 	name: React.PropTypes.string.isRequired,
 	lastRecord: React.PropTypes.shape({
@@ -21,4 +21,4 @@ WeatherStation.propTypes = {
 	}).isRequired,
 };
 
-export default WeatherStation;
+export default WeatherStationPreview;

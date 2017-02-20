@@ -8,7 +8,7 @@ export default [
 		path: 'weather-stations/:id',
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('../scenes/WeatherStations/DataSourceContainer').default);
+				cb(null, require('../scenes/WeatherStations/SingleWeatherStationContainer').default);
 			});
 		}
 	}, {

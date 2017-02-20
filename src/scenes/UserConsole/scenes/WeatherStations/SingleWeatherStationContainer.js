@@ -3,7 +3,7 @@ import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {browserHistory} from 'react-router'
 
-const DataSourcesContainer = (props) => {
+const SingleWeatherStationContainer = (props) => {
 	let {data: {loading, station}} = props;
 
 	if (loading) {
@@ -36,4 +36,4 @@ export default graphql(gql`
 			wsId: props.routeParams.id
 		}
 	}),
-})(DataSourcesContainer);
+})(SingleWeatherStationContainer);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import WeatherStation from './WeatherStation';
+import WeatherStationPreview from './WeatherStationPreview';
 import WeatherStationForm from './WeatherStationForm';
 
 const AllWeatherStationsContainer = (props) => {
@@ -22,7 +22,7 @@ const AllWeatherStationsContainer = (props) => {
 	} else {
 		return <div>
 			{allStations.stations.map(dataSource =>
-				<WeatherStation
+				<WeatherStationPreview
 					key={dataSource.node.id}
 					id={dataSource.node.id}
 					name={dataSource.node.name}
