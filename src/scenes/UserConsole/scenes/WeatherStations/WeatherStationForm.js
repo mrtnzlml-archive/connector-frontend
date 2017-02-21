@@ -4,8 +4,7 @@ import {browserHistory} from 'react-router'
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
-import {FormsyText, FormsySelect} from 'formsy-material-ui/lib';
-// import MenuItem from 'material-ui/MenuItem';
+import {FormsyText} from 'formsy-material-ui/lib';
 import {showMessage} from 'components/PaperToast/Actions';
 import ReduxStore from 'services/ReduxStore';
 
@@ -39,7 +38,6 @@ class WeatherStationForm extends React.Component {
 		this.props.mutate({
 			variables: {
 				name: formValues.wsName,
-				//TODO: WS type
 			}
 		}).then((response) => {
 			browserHistory.push('/weather-stations/' + response.data.station.id); //redirect to new WS page
@@ -58,13 +56,6 @@ class WeatherStationForm extends React.Component {
 				            required
 				            fullWidth
 				            floatingLabelText="Weather Station Name"/>
-
-				{/* FIXME */}
-				{/*<FormsySelect name="wsType" value="0104b09d-470d-403a-bccf-5eef54cdccfe" fullWidth>*/}
-					{/*{this.props.series.map(series =>*/}
-						{/*<MenuItem value={series.id} key={series.id} primaryText={series.name}/>*/}
-					{/*)}*/}
-				{/*</FormsySelect>*/}
 
 				<RaisedButton type="submit" label="Save Weather Station" primary={true} disabled={!this.state.canSubmit}/>
 			</Formsy.Form>
