@@ -11,7 +11,7 @@ const AllWeatherStationsContainer = (props) => {
 		return <p>Loading all weather stations&hellip;</p>;
 	}
 
-	let weatherStationForm = <WeatherStationForm series={allStations.series}/>;
+	let weatherStationForm = <WeatherStationForm/>;
 
 	if (!allStations.stations.length) {
 		return <div>
@@ -36,7 +36,6 @@ const AllWeatherStationsContainer = (props) => {
 	}
 };
 
-//TODO: stránkování
 export default graphql(gql`{
   allStations: allWeatherStations {
     stations: edges {
@@ -45,13 +44,16 @@ export default graphql(gql`{
         id
         name
         records: allRecords(first: 1) {
-          indoorTemperature
+          absolutePressure(pressureUnit:PASCAL)
+          relativePressure(pressureUnit:PASCAL)
+          indoorTemperature(temperatureUnit:CELSIUS)
+          outdoorTemperature(temperatureUnit:CELSIUS)
+          indoorHumidity(humidityUnit:PERCENTAGE)
+          outdoorHumidity(humidityUnit:PERCENTAGE)
+          windSpeed(windSpeedUnit:KMH)
+          windGust(windSpeedUnit:KMH)
         }
       }
-    }
-    series: series {
-      id
-      name
     }
   }
 }`)(AllWeatherStationsContainer);
