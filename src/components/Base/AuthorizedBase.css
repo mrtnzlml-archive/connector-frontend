@@ -2,6 +2,14 @@ body {
     background-color: #fcfcfc;
 }
 
+pre {
+    line-height: 1.2;
+    padding: 1.5rem;
+    background-color: #f7f7f7;
+    overflow-x: auto;
+    border-left: 1px dashed #ddd;
+}
+
 #App {
 }
 
