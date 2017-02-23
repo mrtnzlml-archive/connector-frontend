@@ -15,7 +15,7 @@ export default [
 		path: 'cameras',
 		getComponent(nextState, cb) {
 			require.ensure([], require => {
-				cb(null, require('../scenes/Cameras/CamerasContainer').default);
+				cb(null, require('../scenes/Cameras/AllCamerasContainer').default);
 			});
 		}
 	}
