@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import {browserHistory} from 'react-router';
 import Graph from './SingleWeatherStationGraph';
 import Documentation from './SingleWeatherStationDoc';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const SingleWeatherStationContainer = class extends React.Component {
 
@@ -40,8 +41,8 @@ const SingleWeatherStationContainer = class extends React.Component {
 
 			{/* TODO: current temperature (last record preview) */}
 
-			<a onClick={() => this.curve('natural')}>Natural interpolation</a>
-			<a onClick={() => this.curve('step')}>Step interpolation</a>
+			<RaisedButton label="Natural interpolation" onClick={() => this.curve('natural')}/>
+			<RaisedButton label="Step interpolation" onClick={() => this.curve('step')}/>
 
 			<h3>Temperature history</h3>
 			<Graph data={station.allRecords} dataKeys={['indoorTemperature', 'outdoorTemperature']} interpolation={this.state.interpolation}/>
