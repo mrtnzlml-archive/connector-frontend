@@ -55,7 +55,7 @@ class WeatherStationForm extends React.Component {
 				            type="text"
 				            required
 				            fullWidth
-				            floatingLabelText="Weather Station Name"/>
+				            floatingLabelText="Write weather station name here..."/>
 
 				<RaisedButton type="submit" label="Save Weather Station" primary={true} disabled={!this.state.canSubmit}/>
 			</Formsy.Form>

@@ -3,8 +3,10 @@ import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import WeatherStationPreview from './WeatherStationPreview';
 import WeatherStationForm from './WeatherStationForm';
+import Paper from 'material-ui/Paper';
 
 const AllWeatherStationsContainer = (props) => {
+
 	let {data: {loading, allStations}} = props;
 
 	if (loading) {
@@ -13,14 +15,18 @@ const AllWeatherStationsContainer = (props) => {
 
 	let weatherStationForm = <WeatherStationForm/>;
 
+	let html = null;
 	if (!allStations.stations.length) {
-		return <div>
+
+		html = <Paper style={{padding: 20}}>
 			<h2>At this place you can add and maintain all your weather stations</h2>
-			<p>Are you ready to add your first weather station?</p>
+			<p>Are you ready to add your first weather station? It's very simple:</p>
 			{weatherStationForm}
-		</div>;
+		</Paper>;
+
 	} else {
-		return <div>
+
+		html = <div>
 			{allStations.stations.map(dataSource =>
 				<WeatherStationPreview
 					key={dataSource.node.id}
@@ -31,9 +37,16 @@ const AllWeatherStationsContainer = (props) => {
 						}}
 				/>
 			)}
-			{weatherStationForm}
+			<Paper style={{padding: 20, marginTop: '5rem'}}>
+				<h3>Add another weather station</h3>
+				{weatherStationForm}
+			</Paper>
 		</div>
+
 	}
+
+	return <div id="AllWeatherStationsContainer">{html}</div>
+
 };
 
 export default graphql(gql`{

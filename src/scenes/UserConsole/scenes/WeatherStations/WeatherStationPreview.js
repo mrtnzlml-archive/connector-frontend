@@ -12,13 +12,21 @@ const WeatherStationPreview = (props) => {
 	let record = props.lastRecord;
 
 	return <Link to={`/weather-stations/${props.id}`}>
-		<div className="WeatherStationPreview">
-			<h3>{props.name}</h3>
-			<div>
-				Temperature: <abbr title="Indoor">{print(record.indoorTemperature)}</abbr> / <abbr title="Outdoor">{print(record.outdoorTemperature)}</abbr> °C
-				Pressure: <abbr title="Absolute">{print(record.absolutePressure)}</abbr> / <abbr title="Relative">{print(record.relativePressure)}</abbr> Pa
-				Humidity: <abbr title="Indoor">{print(record.indoorHumidity)}</abbr> / <abbr title="Outdoor">{print(record.outdoorHumidity)}</abbr> %
-				Wind: <abbr title="Wind Speed">{print(record.windSpeed)}</abbr> / <abbr title="Wind Gust">{print(record.windGust)}</abbr> Kmh
+		<div className="WeatherStationPreview clearfix">
+			<div className="wsName">
+				<h2>{props.name}</h2>
+			</div>
+
+			<div className="wsProps">
+				<abbr title="Wind Speed">{print(record.windSpeed)}</abbr> &#8725; <abbr title="Wind Gust">{print(record.windGust)}</abbr> km/h
+				<br/>
+				<abbr title="Absolute">{print(record.absolutePressure)}</abbr> &#8725; <abbr title="Relative">{print(record.relativePressure)}</abbr> Pa
+			</div>
+
+			<div className="wsProps">
+				<abbr title="Indoor">{print(record.indoorTemperature)}</abbr> &#8725; <abbr title="Outdoor">{print(record.outdoorTemperature)}</abbr> &deg;C
+				<br/>
+				<abbr title="Indoor">{print(record.indoorHumidity)}</abbr> &#8725; <abbr title="Outdoor">{print(record.outdoorHumidity)}</abbr> %
 			</div>
 		</div>
 	</Link>;
