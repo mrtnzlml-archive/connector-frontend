@@ -1,32 +1,48 @@
 import React from 'react';
-import './PaperToast.css';
+import Snackbar from 'material-ui/Snackbar';
 
-export default class extends React.Component {
-	static propTypes = {
-		message: React.PropTypes.string,
-		error: React.PropTypes.bool,
-	};
+const SnackbarComponent = class extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			opacity: 0,
+			open: false,
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.message) {
 			this.setState({
-				opacity: 1,
+				open: true,
 			});
-			setTimeout(() => this.setState({
-				opacity: 0,
-			}), 5000);
 		}
 	}
 
+	handleRequestClose = (reason) => {
+		if (reason !== 'clickaway') {
+			this.setState({
+				open: false,
+			});
+		}
+	};
+
 	render() {
-		return <span className={'PaperToast ' + (this.props.error ? 'PaperToast--error' : '')}
-		             style={{opacity: this.state.opacity}}>{this.props.message}</span>;
+		let message = this.props.message ? this.props.message : '';
+
+		return <Snackbar
+			open={this.state.open}
+			message={message}
+			autoHideDuration={5000}
+			onRequestClose={this.handleRequestClose}
+			bodyStyle={this.props.error ? {backgroundColor: 'maroon'} : {}}
+		/>;
 	}
-}
+
+};
+
+SnackbarComponent.propTypes = {
+	message: React.PropTypes.string,
+	error: React.PropTypes.bool,
+};
+
+export default SnackbarComponent;
