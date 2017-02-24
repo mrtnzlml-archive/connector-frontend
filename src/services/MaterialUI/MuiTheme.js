@@ -6,6 +6,7 @@ export default getMuiTheme({
 		primary1Color: lightBlue500,
 		primary2Color: lightBlue700,
 		primary3Color: lightBlue100,
+		accent1Color: lightBlue500,
 	},
 }, {
 	avatar: {
