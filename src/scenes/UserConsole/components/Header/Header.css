@@ -21,6 +21,11 @@
     text-transform: uppercase;
 }
 
+#Header h1 > span {
+    font-size: 2rem;
+    vertical-align: 15%;
+}
+
 .Header__logoutLink {
     position: absolute;
     right: 5rem;
