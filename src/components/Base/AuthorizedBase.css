@@ -10,10 +10,7 @@ pre {
     border-left: 1px dashed #ddd;
 }
 
-#App {
-}
-
-#App__content {
+.app__content {
     margin-top: 4rem;
     margin-bottom: 10rem;
 }

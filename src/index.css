@@ -31,13 +31,13 @@ code {
     background-color: #ffe;
 }
 
-.clearfix:after {
+:global .clearfix:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.wrapper--fluid {
+:global .wrapper--fluid {
     margin-left: 5rem;
     margin-right: 5rem;
 }

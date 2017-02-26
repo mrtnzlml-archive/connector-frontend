@@ -17,7 +17,7 @@ a:hover > .WeatherStationPreview {
     position: relative;
 }
 
-abbr:hover::after {
+.WeatherStationPreview abbr:hover::after {
     position: absolute;
     bottom: 100%;
     left: 100%;

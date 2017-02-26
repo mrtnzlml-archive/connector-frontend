@@ -1,5 +1,5 @@
 import React from 'react';
-import './UnauthorizedBase.css';
+import styles from './UnauthorizedBase.css';
 import LoginForm from 'scenes/Sign/Login/Form';
 import PaperToastContainer from 'components/PaperToast/PaperToastContainer';
 import MuiTheme from 'services/MaterialUI/MuiTheme';
@@ -14,7 +14,7 @@ class UnauthorizedBase extends React.Component {
 
 	render() {
 		return (
-			<div id="UnApp">
+			<div className={styles.unApp}>
 				<h2>Please log in</h2>
 				<LoginForm/>
 				<PaperToastContainer/>

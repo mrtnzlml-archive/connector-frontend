@@ -1,21 +1,21 @@
-#MainMenu {
+.mainMenu {
     box-shadow: 0 2px 2px 0 #bbb;
 }
 
-#MainMenu ul {
+.mainMenu ul {
     margin: 0 0 0 -2rem; /* resets padding from link */
     padding: 0;
 }
 
-#MainMenu ul li {
+.mainMenu ul li {
     list-style: none;
 }
 
-#MainMenu ul li {
+.mainMenu ul li {
     display: inline;
 }
 
-#MainMenu ul li a {
+.mainMenu ul li a {
     display: block;
     float: left;
     padding: 1rem 2rem;
@@ -25,10 +25,10 @@
     letter-spacing: .08rem;
 }
 
-#MainMenu ul li a.active {
+.mainMenu ul li a.active {
     background-color: rgba(256, 256, 256, 0.3);
 }
 
-#MainMenu ul li a:hover {
+.mainMenu ul li a:hover {
     background-color: rgba(256, 256, 256, 0.2);
 }

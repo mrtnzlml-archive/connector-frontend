@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from 'scenes/UserConsole/components/Header/Header';
-import './AuthorizedBase.css';
+import styles from './AuthorizedBase.css';
 import MuiTheme from 'services/MaterialUI/MuiTheme';
 import PaperToastContainer from 'components/PaperToast/PaperToastContainer';
 
@@ -17,7 +17,7 @@ class AuthorizedBase extends React.Component {
 			<div id="App">
 				<Header/>
 				<div className="wrapper--fluid">
-					<div id="App__content">
+					<div className={styles.app__content}>
 						{this.props.children}
 					</div>
 				</div>

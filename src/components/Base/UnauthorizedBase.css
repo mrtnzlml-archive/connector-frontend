@@ -2,7 +2,7 @@ body {
     background-color: #fcfcfc;
 }
 
-#UnApp {
+.unApp {
     margin: 10rem auto;
     width: 256px;
 }

@@ -1,32 +1,32 @@
-#Header {
+.header {
     background: linear-gradient(321deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
     color: #fff;
     position: relative;
 }
 
-#Header a {
+.header a {
     color: white;
 }
 
-#Header h1 {
+.header h1 {
     margin: 0;
     padding-top: 4rem;
     padding-bottom: 3rem;
     font-weight: 100;
 }
 
-#Header h1 > small {
+.header h1 > small {
     font-size: 1.2rem;
     margin-left: 1rem;
     text-transform: uppercase;
 }
 
-#Header h1 > span {
+.header h1 > span {
     font-size: 2rem;
     vertical-align: 15%;
 }
 
-.Header__logoutLink {
+.header__logoutLink {
     position: absolute;
     right: 5rem;
     top: 30%;
