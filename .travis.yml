@@ -4,6 +4,7 @@ node_js:
 
 script:
   - CI=true node scripts/test.js --env=jsdom --verbose --coverage
+  - yarn run build
 
 cache:
   yarn: true
