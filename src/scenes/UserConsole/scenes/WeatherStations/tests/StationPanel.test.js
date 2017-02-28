@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WeatherStationForm from './WeatherStationForm';
+import StationPanel from '../StationPanel';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {
 	ReactDOM.render(
 		<ApplicationContext>
-			<WeatherStationForm/>
+			<StationPanel lastRecord={{}}/>
 		</ApplicationContext>,
 		document.createElement('div')
 	);

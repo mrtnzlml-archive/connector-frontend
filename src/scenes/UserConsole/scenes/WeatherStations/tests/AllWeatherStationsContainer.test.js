@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StationPanel from './StationPanel';
+import AllWeatherStationsContainer from '../AllWeatherStationsContainer';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {
 	ReactDOM.render(
-		<ApplicationContext>
-			<StationPanel lastRecord={{}}/>
+		<ApplicationContext graphqlResponse={{
+			"data": {
+				"allStations": {
+					"series": [],
+					"stations": []
+				}
+			}
+		}}>
+			<AllWeatherStationsContainer/>
 		</ApplicationContext>,
 		document.createElement('div')
 	);
