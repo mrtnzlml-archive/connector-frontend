@@ -22,13 +22,27 @@ a:hover {
     padding-bottom: 1px;
 }
 
+abbr {
+    cursor: help;
+    border-bottom: 1px dashed #ddd;
+    position: relative;
+}
+
+abbr:hover::after {
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    padding: 1rem;
+    color: #fff;
+    background: #000;
+    opacity: 0.5;
+    content: attr(title);
+    font-size: 2rem;
+}
+
 h1, h2, h3 {
     font-weight: 300;
     margin: 0;
-}
-
-code {
-    background-color: #ffe;
 }
 
 :global .clearfix:after {

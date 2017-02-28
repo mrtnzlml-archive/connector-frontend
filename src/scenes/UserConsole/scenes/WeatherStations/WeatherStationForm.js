@@ -10,31 +10,23 @@ import ReduxStore from 'services/ReduxStore';
 
 class WeatherStationForm extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			canSubmit: false,
-		};
+	state = {
+		canSubmit: false,
+	};
 
-		// This binding is necessary to make 'this' work in the callback
-		this.enableButton = this.enableButton.bind(this);
-		this.disableButton = this.disableButton.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	enableButton() {
+	enableButton = () => {
 		this.setState({
 			canSubmit: true,
 		});
 	};
 
-	disableButton() {
+	disableButton = () => {
 		this.setState({
 			canSubmit: false,
 		});
 	};
 
-	handleSubmit(formValues) {
+	handleSubmit = (formValues) => {
 		this.props.mutate({
 			variables: {
 				name: formValues.wsName,
@@ -43,7 +35,7 @@ class WeatherStationForm extends React.Component {
 			browserHistory.push('/weather-stations/' + response.data.station.id); //redirect to new WS page
 			ReduxStore.dispatch(showMessage('New weather station has been created.'));
 		});
-	}
+	};
 
 	render() {
 		return (

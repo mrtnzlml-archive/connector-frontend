@@ -4,7 +4,7 @@ import {LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip} from 'recha
 let tickFormatterX = (timestamp) => {
 	//TODO: nejen datum, ale i čas!
 	let date = new Date(Date.parse(timestamp));
-	return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+	return `${date.getHours()}:${date.getMinutes()} (${date.getDate()}. ${date.getMonth()}.)`;
 };
 
 let renderTooltip = (props) => {
@@ -12,7 +12,7 @@ let renderTooltip = (props) => {
 	if (!payload.length) {
 		return;
 	}
-	return <div>
+	return <div style={{background: 'white'}}>
 		{payload[0].value}
 		<br/>
 		{payload[1].value}
@@ -28,6 +28,9 @@ export default (props) => {
 				dataKey="creationDate"
 				tickFormatter={tickFormatterX}
 				minTickGap={10}
+			  style={{
+			  	fontSize: '1rem',
+			  }}
 			/>
 			<YAxis
 				hide={true}

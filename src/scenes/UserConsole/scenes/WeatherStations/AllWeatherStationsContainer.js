@@ -32,7 +32,7 @@ const AllWeatherStationsContainer = (props) => {
 					key={dataSource.node.id}
 					id={dataSource.node.id}
 					name={dataSource.node.name}
-					lastRecord={dataSource.node.records ? dataSource.node.records[0] : { //defaults
+					lastRecord={dataSource.node.allRecords ? dataSource.node.allRecords.records[0] : { //defaults
 							indoorTemperature: null
 						}}
 				/>
@@ -56,17 +56,23 @@ export default graphql(gql`{
       node {
         id
         name
-        records: allRecords(first: 1) {
-          absolutePressure(pressureUnit:PASCAL)
-          relativePressure(pressureUnit:PASCAL)
-          indoorTemperature(temperatureUnit:CELSIUS)
-          outdoorTemperature(temperatureUnit:CELSIUS)
-          indoorHumidity(humidityUnit:PERCENTAGE)
-          outdoorHumidity(humidityUnit:PERCENTAGE)
-          windSpeed(windSpeedUnit:KMH)
-          windGust(windSpeedUnit:KMH)
+        allRecords(first: 1) {
+          records {
+            absolutePressure(pressureUnit:PASCAL)
+            relativePressure(pressureUnit:PASCAL)
+            indoorTemperature(temperatureUnit:CELSIUS)
+            outdoorTemperature(temperatureUnit:CELSIUS)
+            indoorHumidity(humidityUnit:PERCENTAGE)
+            outdoorHumidity(humidityUnit:PERCENTAGE)
+            windSpeed(windSpeedUnit:KMH)
+            windGust(windSpeedUnit:KMH)
+          }
         }
       }
     }
   }
-}`)(AllWeatherStationsContainer);
+}`, {
+	options: (props) => ({
+		forceFetch: true
+	}),
+})(AllWeatherStationsContainer);

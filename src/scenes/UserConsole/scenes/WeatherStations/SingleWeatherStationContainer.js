@@ -2,54 +2,109 @@ import React from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {browserHistory} from 'react-router';
-import Graph from './SingleWeatherStationGraph';
+import SingleWeatherStationGraphs from './SingleWeatherStationGraphs';
 import Documentation from './SingleWeatherStationDoc';
-import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 import MenuItem from 'material-ui/MenuItem';
-import Formsy from 'formsy-react';
-import {FormsyDate, FormsyText} from 'formsy-material-ui/lib';
+import moment from 'moment';
+import ModifyStation from './ModifyStation';
+import StationPanel from './StationPanel';
 
 const SingleWeatherStationContainer = class extends React.Component {
 
+	allowedInterpolations = {
+		//code: 'Public Name'
+		natural: 'Natural',
+		step: 'Step',
+		monotone: 'Monotome',
+		linear: 'Linear'
+	};
+
 	constructor(props) {
 		super(props);
-
-		let allowedInterpolations = ['natural', 'step', 'monotone', 'linear'];
 		let interpolation = localStorage.getItem('interpolation');
+
 		this.state = {
-			interpolation: allowedInterpolations.includes(interpolation) ? interpolation : 'natural',
+			gapSize: 1,
+			interpolation: this.allowedInterpolations.hasOwnProperty(interpolation) ? interpolation : 'natural',
+			untilDate: new Date(), //FIXME: zde bude potřeba získat čas ze serveru a pracovat s ním!
 		};
 
-		// This binding is necessary to make `this` work in the callback
-		this.handleCurve = this.handleCurve.bind(this);
+		setInterval(() => {
+			this.props.data.refetch({
+				untilDate: moment(new Date()).format(),
+			});
+		}, 1000 * 30);
 	}
 
-	handleCurve(event, index, value) {
+	changeCurve = (event, index, value) => {
 		localStorage.setItem('interpolation', value);
 		this.setState(prevState => ({
 			interpolation: value
 		}));
 	};
 
-	render() {
-		let {data: {loading, station}} = this.props;
+	changeGapSize = (event, gapSize) => {
+		let safeGapSize = Math.max(1, Math.abs(gapSize));
+		this.setState(prevState => ({
+			gapSize: safeGapSize,
+		}));
+		this.delayedRefetch({
+			gap: safeGapSize,
+		});
+	};
 
-		if (loading) {
-			return <p>Loading all weather station data&hellip;</p>;
+	changeUtilDate = (event, date) => {
+		this.setState(prevState => ({
+			untilDate: date
+		}));
+		this.delayedRefetch({
+			untilDate: date,
+		});
+	};
+
+	delayedTimer = null;
+
+	delayedRefetch = (variables) => {
+		if (this.delayedTimer) {
+			clearTimeout(this.delayedTimer);
+		}
+		this.delayedTimer = setTimeout(() => {
+			this.delayedTimer = null;
+			this.props.data.refetch(variables);
+		}, 250);
+	};
+
+	memory = null;
+
+	render() {
+		if (this.props.data.loading && !this.memory) { //first loading
+			return <div>
+				<p>Loading all weather station data, please wait&hellip;</p>
+			</div>;
+		} else {
+			this.memory = { //cache results into memory
+				station: this.props.data.station
+			}
 		}
 
-		if (!station) { //validace props.routeParams.id (?)
+		if (!this.memory.station) { //validace props.routeParams.id (?)
 			browserHistory.push('/');
 		}
 
-		let graphStyle = {marginTop: '2rem', marginBottom: '2rem'};
+		let lastRecord = null;
+		if (this.memory.station.allRecords) {
+			lastRecord = this.memory.station.allRecords.records[0];
+		}
+
 		return <div>
-			<h2>Weather station {station.name}</h2>
+			<h2>Weather station {this.memory.station.name}</h2>
 
-			{/* TODO: current temperature (last record preview) */}
+			{lastRecord && <StationPanel lastRecord={lastRecord}/>}
 
-			<SelectField name="interpolation" floatingLabelText="Graph interpolation" value={this.state.interpolation} onChange={this.handleCurve} style={{
+			<SelectField name="interpolation" floatingLabelText="Graph interpolation" value={this.state.interpolation} onChange={this.changeCurve} style={{
 				float: 'left',
 				marginRight: '1rem',
 			}}>
@@ -58,53 +113,24 @@ const SingleWeatherStationContainer = class extends React.Component {
 				<MenuItem value="monotone" primaryText="Monotone"/>
 				<MenuItem value="linear" primaryText="Linear"/>
 			</SelectField>
-			<Formsy.Form>
-				<FormsyDate
-					name="untilDate"
-					floatingLabelText="Show records until date"
-					container="inline"
-					mode="landscape"
-					maxDate={new Date()}
-					defaultDate={new Date()}
-					style={{
-						float: 'left',
-						marginRight: '1rem',
-					}}
-				/>
-				<FormsyText name="gap" floatingLabelText="Gap between records" type="number" defaultValue={1}/> {/* FIXME: validace rozsahů na straně serveru */}
-			</Formsy.Form>
+			<DatePicker
+				name="untilDate"
+				floatingLabelText="Show records until date"
+				container="inline"
+				mode="landscape"
+				maxDate={new Date()}
+				defaultDate={this.state.untilDate}
+				style={{
+					float: 'left',
+					marginRight: '1rem',
+				}}
+				onChange={this.changeUtilDate}
+			/>
+			<TextField name="gap" floatingLabelText="Gap between records" type="number" value={this.state.gapSize} onChange={this.changeGapSize}/>
 
-			<div style={graphStyle}>
-				<h3>Temperature history</h3>
-				<Graph data={station.allRecords} dataKeys={['indoorTemperature', 'outdoorTemperature']} interpolation={this.state.interpolation}/>
-			</div>
-
-			<div style={graphStyle}>
-				<h3>Pressure history</h3>
-				<Graph data={station.allRecords} dataKeys={['absolutePressure', 'relativePressure']} interpolation={this.state.interpolation}/>
-			</div>
-
-			<div style={graphStyle}>
-				<h3>Humidity history</h3>
-				<Graph data={station.allRecords} dataKeys={['indoorHumidity', 'outdoorHumidity']} interpolation={this.state.interpolation}/>
-			</div>
-
-			<div style={graphStyle}>
-				<h3>Wind speed and gust history</h3>
-				<Graph data={station.allRecords} dataKeys={['windSpeed', 'windGust']} interpolation={this.state.interpolation}/>
-			</div>
-
-			<Documentation wsId={station.id}/>
-
-			<div style={{borderTop: '3px solid indianred', marginTop: '5rem', paddingTop: '3rem'}}>
-				<h2 style={{color: 'indianred'}}>Danger zone</h2>
-				<p>
-					Rename weather station
-				</p>
-				<div>
-					<RaisedButton label="Delete weather station" backgroundColor="indianred" labelColor="white"/>
-				</div>
-			</div>
+			<SingleWeatherStationGraphs recordsConnection={this.memory.station.allRecords} interpolation={this.state.interpolation}/>
+			<Documentation wsId={this.memory.station.id}/>
+			<ModifyStation station={this.memory.station}/>
 
 		</div>
 	};
@@ -112,20 +138,23 @@ const SingleWeatherStationContainer = class extends React.Component {
 };
 
 export default graphql(gql`
-  query ($wsId: ID!, $first: Int!) {
+  query ($wsId: ID!, $first: Int!, $gap: Int!, $untilDate: DateTime!) {
     station: weatherStation(id: $wsId) {
       id
       name
-      allRecords(first: $first) {
-        creationDate
-        indoorTemperature(temperatureUnit: CELSIUS)
-        outdoorTemperature(temperatureUnit: CELSIUS)
-        absolutePressure(pressureUnit: PASCAL)
-        relativePressure(pressureUnit: PASCAL)
-        indoorHumidity(humidityUnit: PERCENTAGE)
-        outdoorHumidity(humidityUnit: PERCENTAGE)
-        windSpeed(windSpeedUnit: KMH)
-        windGust(windSpeedUnit: KMH)
+      allRecords(first: $first, gap: $gap, untilDate: $untilDate) {
+        returnedCount
+        records {
+          creationDate
+          indoorTemperature(temperatureUnit: CELSIUS)
+          outdoorTemperature(temperatureUnit: CELSIUS)
+          absolutePressure(pressureUnit: PASCAL)
+          relativePressure(pressureUnit: PASCAL)
+          indoorHumidity(humidityUnit: PERCENTAGE)
+          outdoorHumidity(humidityUnit: PERCENTAGE)
+          windSpeed(windSpeedUnit: KMH)
+          windGust(windSpeedUnit: KMH)
+        }
       }
     }
   }`, {
@@ -133,6 +162,8 @@ export default graphql(gql`
 		variables: {
 			wsId: props.routeParams.id,
 			first: 100,
+			gap: 1,
+			untilDate: moment(new Date()).format(),
 		}
 	}),
 })(SingleWeatherStationContainer);

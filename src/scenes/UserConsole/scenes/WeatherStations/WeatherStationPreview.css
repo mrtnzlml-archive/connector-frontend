@@ -11,23 +11,6 @@ a:hover > .WeatherStationPreview {
     color: #333;
 }
 
-.WeatherStationPreview abbr {
-    cursor: help;
-    border-bottom: 1px dashed #ddd;
-    position: relative;
-}
-
-.WeatherStationPreview abbr:hover::after {
-    position: absolute;
-    bottom: 100%;
-    left: 100%;
-    padding: 1rem;
-    color: #fff;
-    background: #000;
-    opacity: 0.5;
-    content: attr(title);
-}
-
 .WeatherStationPreview .wsName {
     float: left;
     margin-right: 2rem;
