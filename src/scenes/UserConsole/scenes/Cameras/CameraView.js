@@ -1,12 +1,9 @@
 import React from 'react';
-import {Card, CardMedia, CardTitle} from 'material-ui/Card';
+import ClapprPlayer from 'components/Clappr/Clappr';
 
 export default (props) => {
 
-	return <Card>
-		<CardMedia overlay={<CardTitle title={props.cameraData.id} subtitle={props.cameraData.id}/>}>
-			<img src="webcam/prague.jpg" alt="Webcam view"/>
-		</CardMedia>
-	</Card>;
+	// TODO
+	return <ClapprPlayer source="http://stream.adeira.loc/hls/ch1/stream.m3u8"/>;
 
 };

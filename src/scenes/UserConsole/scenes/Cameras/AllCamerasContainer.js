@@ -8,7 +8,7 @@ const AllCamerasPresentation = (props) => {
 	let {data: {loading, allCameras}} = props;
 
 	if (loading) {
-		return <p>Loading all weather stations&hellip;</p>;
+		return <p>Loading all camera devices&hellip;</p>;
 	}
 
 	if (!allCameras.length) {
