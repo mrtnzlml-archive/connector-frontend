@@ -1,10 +1,9 @@
 import React from 'react';
 import {LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip} from 'recharts';
+import moment from 'moment';
 
-let tickFormatterX = (timestamp) => {
-	//TODO: nejen datum, ale i čas!
-	let date = new Date(Date.parse(timestamp));
-	return `${date.getHours()}:${date.getMinutes()} (${date.getDate()}. ${date.getMonth()}.)`;
+let tickAggregatedDate = (timestamp) => {
+	return moment(timestamp).format('MMMM Do YYYY, h:mm:ss a'); // March 7th 2017, 4:31:55 pm
 };
 
 let renderTooltip = (props) => {
@@ -12,7 +11,9 @@ let renderTooltip = (props) => {
 	if (!payload.length) {
 		return;
 	}
-	return <div style={{background: 'white'}}>
+	return <div style={{background: 'rgba(255, 255, 255, 0.75)'}}>
+		{tickAggregatedDate(payload[0].payload.aggregatedDate)}
+		<br/>
 		{payload[0].value}
 		<br/>
 		{payload[1].value}
@@ -25,9 +26,9 @@ export default (props) => {
 		<LineChart data={props.data} syncId="singleWS">
 
 			<XAxis
-				dataKey="creationDate"
-				tickFormatter={tickFormatterX}
-				minTickGap={10}
+				dataKey="aggregatedDate"
+				tickFormatter={tickAggregatedDate}
+				interval="preserveStartEnd"
 			  style={{
 			  	fontSize: '1rem',
 			  }}

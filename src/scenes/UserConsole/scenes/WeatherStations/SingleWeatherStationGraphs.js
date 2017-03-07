@@ -9,7 +9,7 @@ export default (props) => {
 	let allRecords = connectionDetails ? connectionDetails.records : null;
 	let returnedCount = connectionDetails ? connectionDetails.returnedCount : 0;
 
-	let minimumCount = 50;
+	let minimumCount = 10;
 	if (returnedCount < minimumCount) {
 		return <div style={{marginTop: '5rem'}}>
 			<h2>There is not enought data to show statistics yet.</h2>

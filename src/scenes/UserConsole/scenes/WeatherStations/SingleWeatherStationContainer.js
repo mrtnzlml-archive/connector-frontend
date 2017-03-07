@@ -5,12 +5,11 @@ import {browserHistory} from 'react-router';
 import SingleWeatherStationGraphs from './SingleWeatherStationGraphs';
 import Documentation from './SingleWeatherStationDoc';
 import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import MenuItem from 'material-ui/MenuItem';
 import moment from 'moment';
 import ModifyStation from './ModifyStation';
-import StationPanel from './StationPanel';
+import StationPanel from './StationPanelContainer';
 
 const SingleWeatherStationContainer = class extends React.Component {
 
@@ -19,22 +18,31 @@ const SingleWeatherStationContainer = class extends React.Component {
 		natural: 'Natural',
 		step: 'Step',
 		monotone: 'Monotome',
-		linear: 'Linear'
+		linear: 'Linear',
+	};
+
+	allowedAggregations = {
+		//code: 'Public Name'
+		hour: 'Hour',
+		day: 'Day',
+		week: 'Week',
+		month: 'Month',
 	};
 
 	constructor(props) {
 		super(props);
 		let interpolation = localStorage.getItem('interpolation');
+		let aggregation = localStorage.getItem('aggregation');
 
 		this.state = {
-			gapSize: 1,
+			aggregation: this.allowedAggregations.hasOwnProperty(aggregation) ? aggregation : 'hour',
 			interpolation: this.allowedInterpolations.hasOwnProperty(interpolation) ? interpolation : 'natural',
 			untilDate: new Date(), //FIXME: zde bude potřeba získat čas ze serveru a pracovat s ním!
 		};
 
 		setInterval(() => {
-			this.props.data.refetch({
-				untilDate: moment(new Date()).format(),
+			this.props.data.refetch({ //manual polling (changing variable)
+				untilDate: this.state.untilDate,
 			});
 		}, 1000 * 30);
 	}
@@ -46,13 +54,13 @@ const SingleWeatherStationContainer = class extends React.Component {
 		}));
 	};
 
-	changeGapSize = (event, gapSize) => {
-		let safeGapSize = Math.max(1, Math.abs(gapSize));
+	changeAggregation = (event, index, value) => {
+		localStorage.setItem('aggregation', value);
 		this.setState(prevState => ({
-			gapSize: safeGapSize,
+			aggregation: value
 		}));
 		this.delayedRefetch({
-			gap: safeGapSize,
+			aggregation: value,
 		});
 	};
 
@@ -94,24 +102,14 @@ const SingleWeatherStationContainer = class extends React.Component {
 			browserHistory.push('/');
 		}
 
-		let lastRecord = null;
-		if (this.memory.station.allRecords) {
-			lastRecord = this.memory.station.allRecords.records[0];
-		}
-
 		return <div>
 			<h2>Weather station {this.memory.station.name}</h2>
+			<StationPanel stationId={this.memory.station.id}/>
 
-			{lastRecord && <StationPanel lastRecord={lastRecord}/>}
-
-			<SelectField name="interpolation" floatingLabelText="Graph interpolation" value={this.state.interpolation} onChange={this.changeCurve} style={{
-				float: 'left',
-				marginRight: '1rem',
-			}}>
-				<MenuItem value="natural" primaryText="Natural"/>
-				<MenuItem value="step" primaryText="Step"/>
-				<MenuItem value="monotone" primaryText="Monotone"/>
-				<MenuItem value="linear" primaryText="Linear"/>
+			<SelectField name="interpolation" floatingLabelText="Graph interpolation" value={this.state.interpolation} onChange={this.changeCurve} style={{float: 'left', marginRight: '1rem'}}>
+				{Object.keys(this.allowedInterpolations).map((key) =>
+					<MenuItem key={key} value={key} primaryText={this.allowedInterpolations[key]}/>
+				)}
 			</SelectField>
 			<DatePicker
 				name="untilDate"
@@ -126,7 +124,11 @@ const SingleWeatherStationContainer = class extends React.Component {
 				}}
 				onChange={this.changeUtilDate}
 			/>
-			<TextField name="gap" floatingLabelText="Gap between records" type="number" value={this.state.gapSize} onChange={this.changeGapSize}/>
+			<SelectField name="aggregation" floatingLabelText="Aggregation" value={this.state.aggregation} onChange={this.changeAggregation} style={{marginRight: '1rem'}}>
+				{Object.keys(this.allowedAggregations).map((key) =>
+					<MenuItem key={key} value={key} primaryText={this.allowedAggregations[key]}/>
+				)}
+			</SelectField>
 
 			<SingleWeatherStationGraphs recordsConnection={this.memory.station.allRecords} interpolation={this.state.interpolation}/>
 			<Documentation wsId={this.memory.station.id}/>
@@ -138,14 +140,14 @@ const SingleWeatherStationContainer = class extends React.Component {
 };
 
 export default graphql(gql`
-  query ($wsId: ID!, $first: Int!, $gap: Int!, $untilDate: DateTime!) {
+  query ($wsId: ID!, $first: Int!, $aggregation: RecordsAggregation!, $untilDate: DateTime!) {
     station: weatherStation(id: $wsId) {
       id
       name
-      allRecords(first: $first, gap: $gap, untilDate: $untilDate) {
+      allRecords(first: $first, aggregation: $aggregation, untilDate: $untilDate) {
         returnedCount
         records {
-          creationDate
+          aggregatedDate
           indoorTemperature(temperatureUnit: CELSIUS)
           outdoorTemperature(temperatureUnit: CELSIUS)
           absolutePressure(pressureUnit: PASCAL)
@@ -162,7 +164,7 @@ export default graphql(gql`
 		variables: {
 			wsId: props.routeParams.id,
 			first: 100,
-			gap: 1,
+			aggregation: 'hour',
 			untilDate: moment(new Date()).format(),
 		}
 	}),
