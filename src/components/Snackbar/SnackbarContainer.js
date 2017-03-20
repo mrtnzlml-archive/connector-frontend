@@ -4,11 +4,9 @@ import Snackbar from './Snackbar'
 const mapStateToProps = (storeState, ownProps) => {
 	let messages = storeState.messages;
 	return {
-		...messages,
-		...{
-			message: messages.message === null ? '' : messages.message,
-			open: !!messages.message
-		}
+		message: messages.message === null ? '' : messages.message,
+		error: messages.error,
+		open: !!messages.message
 	}
 };
 
