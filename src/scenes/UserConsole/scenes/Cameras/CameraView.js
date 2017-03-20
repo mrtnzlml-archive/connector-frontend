@@ -1,9 +1,15 @@
 import React from 'react';
 import ClapprPlayer from 'components/Clappr/Clappr';
 
-export default (props) => {
+let CameraView = (props) =>
+	<ClapprPlayer source={props.camera.stream.hls}/>;
 
-	// TODO
-	return <ClapprPlayer source="http://stream.adeira.loc/hls/ch1/stream.m3u8"/>;
-
+CameraView.propTypes = {
+	camera: React.PropTypes.shape({
+		stream: React.PropTypes.shape({
+			hls: React.PropTypes.string.isRequired,
+		}).isRequired,
+	}).isRequired,
 };
+
+export default CameraView;
