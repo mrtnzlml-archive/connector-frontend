@@ -38,13 +38,11 @@ export default class extends React.Component {
 		this.player = new Clappr.Player({
 			parent: this.refs.player,
 			source: source,
-			// width: '100%',
-			// height: '100%',
 		});
 	};
 
 	render() {
-		return <div ref="player"></div>;
+		return <div ref="player"/>;
 	};
 
 };
