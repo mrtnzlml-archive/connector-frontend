@@ -1,7 +1,7 @@
 import {print} from 'graphql-tag/printer';
 import Authenticator from 'services/Authenticator';
 import {showMessage, showErrorMessage} from 'components/PaperToast/Actions'
-import ReduxStore from 'services/ReduxStore';
+import {ReduxStore} from 'services/ReduxStore';
 
 export default class HTTPFetchNetworkInterface {
 	constructor(uri) {
