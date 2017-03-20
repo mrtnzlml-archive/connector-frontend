@@ -1,4 +1,4 @@
-import {Messages} from '../services/ActionTypes';
+import {Messages} from 'actions/ActionTypes';
 
 const initialState = {
 	error: false,
