@@ -6,10 +6,12 @@ import gql from 'graphql-tag';
 const StationPanelContainer = class extends React.Component {
 
 	render = () => {
-		if(this.props.data.loading) {
+		if (this.props.data.loading) {
 			return null;
 		}
-		let lastRecord = this.props.data.weatherStation.allRecords.records[0];
+		let lastRecord = this.props.data.weatherStation.allRecords
+			? this.props.data.weatherStation.allRecords.records[0]
+			: null;
 		return <div>{lastRecord && <StationPanel lastRecord={lastRecord}/>}</div>;
 	}
 
