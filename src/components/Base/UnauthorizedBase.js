@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './UnauthorizedBase.css';
 import LoginForm from 'scenes/Sign/Login/Form';
-import PaperToastContainer from 'components/PaperToast/PaperToastContainer';
+import SnackbarContainer from 'components/Snackbar/SnackbarContainer';
 import MuiTheme from 'services/MaterialUI/MuiTheme';
 
 class UnauthorizedBase extends React.Component {
@@ -17,7 +17,7 @@ class UnauthorizedBase extends React.Component {
 			<div className={styles.unApp}>
 				<h2>Please log in</h2>
 				<LoginForm/>
-				<PaperToastContainer/>
+				<SnackbarContainer/>
 			</div>
 		);
 	}

@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
-import {showMessage} from 'components/PaperToast/Actions';
+import {showMessage} from 'services/ActionCreators';
 import {ReduxStore} from 'services/ReduxStore';
 
 class WeatherStationForm extends React.Component {

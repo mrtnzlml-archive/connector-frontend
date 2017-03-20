@@ -1,13 +1,15 @@
+import {Messages} from './ActionTypes';
+
 export const showMessage = (message) => {
 	return {
-		type: 'SHOW_MESSAGE',
+		type: Messages.SHOW_MESSAGE,
 		message
 	}
 };
 
 export const showErrorMessage = (message) => {
 	return {
-		type: 'SHOW_ERROR_MESSAGE',
+		type: Messages.SHOW_ERROR_MESSAGE,
 		message
 	}
 };

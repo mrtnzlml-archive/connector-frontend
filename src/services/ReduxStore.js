@@ -1,4 +1,4 @@
-import MessagesReducer from 'components/PaperToast/MessagesReducer';
+import MessagesReducer from './MessagesReducer.js';
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import ApolloClient from 'apollo-client';
 import appConfig from './../../config/application';

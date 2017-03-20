@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PaperToast from './PaperToast';
+import Snackbar from './Snackbar';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {
 	ReactDOM.render(
 		<ApplicationContext>
-			<PaperToast/>
+			<Snackbar error={false} message="test" open={true}/>
 		</ApplicationContext>,
 		document.createElement('div')
 	);
 });
 
-it('renders message without crashing', () => {
-	ReactDOM.render( // TODO: test render result and opacity
+it('renders error without crashing', () => {
+	ReactDOM.render(
 		<ApplicationContext>
-			<PaperToast message="test"/>
+			<Snackbar error={true} message="test" open={true}/>
 		</ApplicationContext>,
 		document.createElement('div')
 	);
