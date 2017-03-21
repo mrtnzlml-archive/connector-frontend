@@ -1,48 +1,31 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Auth from 'services/Authenticator';
-import {browserHistory} from 'react-router'
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
+import {connect} from 'react-redux';
+import {authenticate} from 'actions/User';
 
 class LoginForm extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			canSubmit: false,
-		};
 
-		// This binding is necessary to make 'this' work in the callback
-		this.enableButton = this.enableButton.bind(this);
-		this.disableButton = this.disableButton.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+	state = {
+		canSubmit: false,
+	};
 
-	enableButton() {
+	enableButton = () => {
 		this.setState({
 			canSubmit: true,
 		});
 	};
 
-	disableButton() {
+	disableButton = () => {
 		this.setState({
 			canSubmit: false,
 		});
 	};
 
-	handleSubmit(formValues) {
-		this.props.mutate({
-			variables: {
-				username: formValues.username,
-				password: formValues.password,
-			}
-		}).then((response) => {
-			Auth.authenticateUser(response.data.login.token);
-			browserHistory.push('/'); //redirect to the homepage
-		});
-	}
+	handleSubmit = (formValues) => {
+		this.props.dispatch(authenticate(formValues.username, formValues.password));
+	};
 
 	render() {
 		return (
@@ -68,10 +51,4 @@ class LoginForm extends React.Component {
 	}
 }
 
-export default graphql(gql`
-  mutation($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-    }
-  }
-`)(LoginForm);
+export default connect()(LoginForm);
