@@ -159,9 +159,9 @@ module.exports = {
         }
       },
       {
-        test: /\.graphql$/,
+        test: /\.(graphql|text)$/,
 	      exclude: /node_modules/,
-	      loader: 'graphql-tag/loader'
+	      loader: 'raw-loader'
       }
     ]
   },

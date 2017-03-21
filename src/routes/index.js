@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, browserHistory} from 'react-router'
 import Auth from 'services/Authenticator';
-// import DevTools from 'services/DevTools'
+import DevTools from 'services/DevTools'
 
 const routes = {
 	path: '/',
@@ -57,5 +57,5 @@ const routes = {
 //TODO: https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md#exclude-devtools-from-production-builds
 export default <div>
 	<Router history={browserHistory} routes={routes}/>
-	{/*<DevTools/>*/}
+	<DevTools/>
 </div>

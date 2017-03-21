@@ -6,7 +6,8 @@ const mapStateToProps = (storeState, ownProps) => {
 	return {
 		message: messages.message === null ? '' : messages.message,
 		error: messages.error,
-		open: !!messages.message
+		open: !!messages.message,
+		timestamp: Date.now(), // so React will to always rerender props
 	}
 };
 

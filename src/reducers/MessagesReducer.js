@@ -1,34 +1,36 @@
-import {Messages} from 'actions/ActionTypes';
+import {
+	SHOW_MESSAGE,
+	SHOW_ERROR_MESSAGE,
+	RESET_ERROR_MESSAGE,
+} from 'actions/Message';
 
 const initialState = {
 	error: false,
 	message: null,
-	timestamp: null,
 };
 
-// Notes:
-// - Do not mutate the state, always create new one: Object.assign({}, state, newStateChangeSet); OR { ...state, ...newState }
-// - Always return previous state in 'default' switch branch
-// - It shouldn't perform any side effects like API calls or router transitions. These should happen before an action is dispatched
 export default (state = initialState, action) => {
 	switch (action.type) {
 
-		case Messages.SHOW_MESSAGE:
+		case RESET_ERROR_MESSAGE:
 			return {
-				...state, ...{
-					error: false,
-					message: action.message,
-					timestamp: Date.now(), // so React will to always rerender props
-				}
+				...state,
+				error: false,
+				message: null,
 			};
 
-		case Messages.SHOW_ERROR_MESSAGE:
+		case SHOW_MESSAGE:
 			return {
-				...state, ...{
-					error: true,
-					message: action.message,
-					timestamp: Date.now(), // so React will to always rerender props
-				}
+				...state,
+				error: false,
+				message: action.message,
+			};
+
+		case SHOW_ERROR_MESSAGE:
+			return {
+				...state,
+				error: true,
+				message: action.message,
 			};
 
 		default:

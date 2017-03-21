@@ -2,10 +2,9 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
-import {browserHistory} from 'react-router'
 import Alert from 'components/Dialog/Simple';
+import {connect} from 'react-redux';
+import {renameWeatherStation, removeWeatherStation} from 'actions/WeatherStation';
 
 let ModifyStation = class extends React.Component {
 
@@ -21,32 +20,24 @@ let ModifyStation = class extends React.Component {
 		this.setState({alertOpened: false});
 	};
 
-	renameWeatherStation = (formValues) => {
-		this.props.renameStation({
-			variables: {
-				stationId: this.props.station.id,
-				newName: formValues.newName,
-			}
-		}).then((response) => {
-			window.location.reload();
-		});
+	rename = (formValues) => {
+		this.props.dispatch(renameWeatherStation({
+			stationId: this.props.station.id,
+			newName: formValues.newName,
+		}));
 	};
 
-	removeWeatherStation = () => {
-		this.props.removeStation({
-			variables: {
-				stationId: this.props.station.id,
-			}
-		}).then((response) => {
-			browserHistory.push('/'); //redirect to the homepage
-		});
+	remove = () => {
+		this.props.dispatch(removeWeatherStation({
+			stationId: this.props.station.id,
+		}));
 	};
 
 	render = () =>
 		<div style={{borderTop: '3px solid indianred', marginTop: '5rem', paddingTop: '3rem'}}>
 			<h2 style={{color: 'indianred'}}>Danger zone</h2>
 			<div>
-				<Formsy.Form onValidSubmit={this.renameWeatherStation}>
+				<Formsy.Form onValidSubmit={this.rename}>
 					<FormsyText
 						name="newName"
 						required
@@ -62,9 +53,9 @@ let ModifyStation = class extends React.Component {
 					open={this.state.alertOpened}
 					title={`Do you want to delete weather station '${this.props.station.name}' and related records?`}
 					body="Deleting of this station will not only delete the weather station but it will also delete related weather station records. This is permanent operation and cannot be reversed."
-				  yesLabel="Yes, delete weather station"
+					yesLabel="Yes, delete weather station"
 					onRequestClose={this.discartAlert}
-					onSuccess={this.removeWeatherStation}
+					onSuccess={this.remove}
 				/>
 				<RaisedButton label="Delete weather station" backgroundColor="#cd5c5c" labelColor="#fff" onClick={this.throwAlert}/>
 			</div>
@@ -78,27 +69,4 @@ ModifyStation.propTypes = {
 	}).isRequired
 };
 
-let renameStationQuery = gql`
-  mutation($stationId: ID!, $newName: String!) {
-    renameWeatherStation(stationId: $stationId, newName: $newName) {
-      name
-    }
-  }
-`;
-
-let removeStationQuery = gql`
-  mutation($stationId: ID!) {
-    removeWeatherStation(stationId: $stationId) {
-      id
-    }
-  }
-`;
-
-const ModifyStationWithMutations =
-	graphql(renameStationQuery, {name: 'renameStation'})(
-		graphql(removeStationQuery, {name: 'removeStation'})(
-			ModifyStation
-		)
-	);
-
-export default ModifyStationWithMutations;
+export default connect()(ModifyStation);

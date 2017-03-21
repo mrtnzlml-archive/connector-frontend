@@ -1,5 +1,7 @@
 import React from 'react';
 import MaterialSnackbar from 'material-ui/Snackbar';
+import {resetErrorMessage} from 'actions/Message';
+import {connect} from 'react-redux';
 
 const Snackbar = class extends React.Component {
 
@@ -15,6 +17,7 @@ const Snackbar = class extends React.Component {
 
 	handleRequestClose = (reason) => {
 		if (reason !== 'clickaway') {
+			this.props.dispatch(resetErrorMessage());
 			this.setState({
 				open: false,
 			});
@@ -39,4 +42,4 @@ Snackbar.propTypes = {
 	open: React.PropTypes.bool.isRequired,
 };
 
-export default Snackbar;
+export default connect()(Snackbar);

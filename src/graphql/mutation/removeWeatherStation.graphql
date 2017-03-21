@@ -1,0 +1,5 @@
+mutation($stationId: ID!) {
+  removeWeatherStation(stationId: $stationId) {
+    id
+  }
+}

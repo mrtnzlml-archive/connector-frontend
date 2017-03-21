@@ -1,0 +1,20 @@
+query ($wsId: ID!, $first: Int = 100, $aggregation: RecordsAggregation, $untilDate: DateTime) {
+  station: weatherStation(id: $wsId) {
+    id
+    name
+    allRecords(first: $first, aggregation: $aggregation, untilDate: $untilDate) {
+      returnedCount
+      records {
+        aggregatedDate
+        indoorTemperature(temperatureUnit: CELSIUS)
+        outdoorTemperature(temperatureUnit: CELSIUS)
+        absolutePressure(pressureUnit: PASCAL)
+        relativePressure(pressureUnit: PASCAL)
+        indoorHumidity(humidityUnit: PERCENTAGE)
+        outdoorHumidity(humidityUnit: PERCENTAGE)
+        windSpeed(windSpeedUnit: KMH)
+        windGust(windSpeedUnit: KMH)
+      }
+    }
+  }
+}

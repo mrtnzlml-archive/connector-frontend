@@ -1,12 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import {browserHistory} from 'react-router'
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
-import {showMessage} from 'services/ActionCreators';
-import {ReduxStore} from 'services/ReduxStore';
 
 class WeatherStationForm extends React.Component {
 
@@ -27,13 +22,8 @@ class WeatherStationForm extends React.Component {
 	};
 
 	handleSubmit = (formValues) => {
-		this.props.mutate({
-			variables: {
-				name: formValues.wsName,
-			}
-		}).then((response) => {
-			browserHistory.push('/weather-stations/' + response.data.station.id); //redirect to new WS page
-			ReduxStore.dispatch(showMessage('New weather station has been created.'));
+		this.props.onSuccess({
+			name: formValues.wsName,
 		});
 	};
 
@@ -56,10 +46,4 @@ class WeatherStationForm extends React.Component {
 
 }
 
-export default graphql(gql`
-  mutation ($name: String!) {
-    station: createWeatherStation(name: $name) {
-      id
-    }
-  }
-`)(WeatherStationForm);
+export default WeatherStationForm;

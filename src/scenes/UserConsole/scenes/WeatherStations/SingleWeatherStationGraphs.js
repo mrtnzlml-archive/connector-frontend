@@ -5,9 +5,8 @@ let graphStyle = {marginTop: '2rem', marginBottom: '2rem'};
 
 export default (props) => {
 
-	let connectionDetails = props.recordsConnection;
-	let allRecords = connectionDetails ? connectionDetails.records : null;
-	let returnedCount = connectionDetails ? connectionDetails.returnedCount : 0;
+	let allRecords = props.records;
+	let returnedCount = props.records.length;
 
 	let minimumCount = 10;
 	if (returnedCount < minimumCount) {

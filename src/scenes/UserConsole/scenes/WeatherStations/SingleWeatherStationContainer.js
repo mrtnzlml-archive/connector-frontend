@@ -1,28 +1,24 @@
 import React from 'react';
-import {graphql} from 'react-apollo';
-import gql from 'graphql-tag';
-import {browserHistory} from 'react-router';
 import SingleWeatherStationGraphs from './SingleWeatherStationGraphs';
 import Documentation from './SingleWeatherStationDoc';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from 'material-ui/DatePicker';
 import MenuItem from 'material-ui/MenuItem';
-import moment from 'moment';
 import ModifyStation from './ModifyStation';
 import StationPanel from './StationPanelContainer';
+import {connect} from 'react-redux';
+import {loadSingleWeatherStation} from 'actions/WeatherStation';
 
 const SingleWeatherStationContainer = class extends React.Component {
 
-	allowedInterpolations = {
-		//code: 'Public Name'
+	allowedInterpolations = { // code: 'Public Name'
 		natural: 'Natural',
 		step: 'Step',
 		monotone: 'Monotome',
 		linear: 'Linear',
 	};
 
-	allowedAggregations = {
-		//code: 'Public Name'
+	allowedAggregations = { // code: 'Public Name'
 		hour: 'Hour',
 		day: 'Day',
 		week: 'Week',
@@ -39,12 +35,22 @@ const SingleWeatherStationContainer = class extends React.Component {
 			interpolation: this.allowedInterpolations.hasOwnProperty(interpolation) ? interpolation : 'natural',
 			untilDate: new Date(), //FIXME: zde bude potřeba získat čas ze serveru a pracovat s ním!
 		};
+	}
 
-		setInterval(() => {
-			this.props.data.refetch({ //manual polling (changing variable)
-				untilDate: this.state.untilDate,
-			});
+	componentWillMount() {
+		let load = () => this.props.dispatch(loadSingleWeatherStation({
+			wsId: this.props.routeParams.id, // FIXME
+			aggregation: 'hour',
+			untilDate: this.state.untilDate,
+		}));
+		load();
+		this.timer = setInterval(() => {
+			load();
 		}, 1000 * 30);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timer);
 	}
 
 	changeCurve = (event, index, value) => {
@@ -85,26 +91,16 @@ const SingleWeatherStationContainer = class extends React.Component {
 		}, 250);
 	};
 
-	memory = null;
-
 	render() {
-		if (this.props.data.loading && !this.memory) { //first loading
-			return <div>
-				<p>Loading all weather station data, please wait&hellip;</p>
-			</div>;
-		} else {
-			this.memory = { //cache results into memory
-				station: this.props.data.station
-			}
-		}
+		const {station} = this.props;
 
-		if (!this.memory.station) { //validace props.routeParams.id (?)
-			browserHistory.push('/');
+		if (!station) {
+			return <p>Loading weather station data, please wait&hellip;</p>;
 		}
 
 		return <div>
-			<h2>Weather station {this.memory.station.name}</h2>
-			<StationPanel stationId={this.memory.station.id}/>
+			<h2>Weather station {station.name}</h2>
+			<StationPanel stationId={station.id}/>
 
 			<SelectField name="interpolation" floatingLabelText="Graph interpolation" value={this.state.interpolation} onChange={this.changeCurve} style={{float: 'left', marginRight: '1rem'}}>
 				{Object.keys(this.allowedInterpolations).map((key) =>
@@ -130,42 +126,21 @@ const SingleWeatherStationContainer = class extends React.Component {
 				)}
 			</SelectField>
 
-			<SingleWeatherStationGraphs recordsConnection={this.memory.station.allRecords} interpolation={this.state.interpolation}/>
-			<Documentation wsId={this.memory.station.id}/>
-			<ModifyStation station={this.memory.station}/>
+			<SingleWeatherStationGraphs records={station.records} interpolation={this.state.interpolation}/>
+			<Documentation wsId={station.id}/>
+			<ModifyStation station={station}/>
 
 		</div>
 	};
 
 };
 
-export default graphql(gql`
-  query ($wsId: ID!, $first: Int!, $aggregation: RecordsAggregation!, $untilDate: DateTime!) {
-    station: weatherStation(id: $wsId) {
-      id
-      name
-      allRecords(first: $first, aggregation: $aggregation, untilDate: $untilDate) {
-        returnedCount
-        records {
-          aggregatedDate
-          indoorTemperature(temperatureUnit: CELSIUS)
-          outdoorTemperature(temperatureUnit: CELSIUS)
-          absolutePressure(pressureUnit: PASCAL)
-          relativePressure(pressureUnit: PASCAL)
-          indoorHumidity(humidityUnit: PERCENTAGE)
-          outdoorHumidity(humidityUnit: PERCENTAGE)
-          windSpeed(windSpeedUnit: KMH)
-          windGust(windSpeedUnit: KMH)
-        }
-      }
-    }
-  }`, {
-	options: (props) => ({
-		variables: {
-			wsId: props.routeParams.id,
-			first: 100,
-			aggregation: 'hour',
-			untilDate: moment(new Date()).format(),
+export default connect(
+	(storageState, ownProps) => { // mapStateToProps
+		let {weatherStations: {entities}} = storageState;
+
+		return {
+			station: entities ? entities[ownProps.routeParams.id] : null, // only single station
 		}
-	}),
-})(SingleWeatherStationContainer);
+	}
+)(SingleWeatherStationContainer);

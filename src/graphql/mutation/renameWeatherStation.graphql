@@ -1,0 +1,5 @@
+mutation($stationId: ID!, $newName: String!) {
+  renameWeatherStation(stationId: $stationId, newName: $newName) {
+    name
+  }
+}

@@ -1,78 +1,66 @@
 import React from 'react';
-import {graphql} from 'react-apollo';
-import gql from 'graphql-tag';
+import {connect} from 'react-redux';
 import WeatherStationPreview from './WeatherStationPreview';
 import WeatherStationForm from './WeatherStationForm';
 import Paper from 'material-ui/Paper';
+import {loadAllWeatherStations, createWeatherStation} from 'actions/WeatherStation';
 
-const AllWeatherStationsContainer = (props) => {
+const AllWeatherStationsContainer = class extends React.Component {
 
-	let {data: {loading, allStations}} = props;
-
-	if (loading) {
-		return <p>Loading all weather stations&hellip;</p>;
+	componentWillMount() {
+		this.props.dispatch(loadAllWeatherStations());
 	}
 
-	let weatherStationForm = <WeatherStationForm/>;
+	render = () => {
+		const {stations, loading} = this.props;
+		if (loading) {
+			return <p>Loading all weather stations&hellip;</p>;
+		}
 
-	let html = null;
-	if (!allStations.stations.length) {
+		let weatherStationForm = <WeatherStationForm onSuccess={(variables) => {
+			this.props.dispatch(createWeatherStation(variables));
+		}}/>;
 
-		html = <Paper style={{padding: 20}}>
-			<h2>At this place you can add and maintain all your weather stations</h2>
-			<p>Are you ready to add your first weather station? It's very simple:</p>
-			{weatherStationForm}
-		</Paper>;
-
-	} else {
-
-		html = <div>
-			{allStations.stations.map(dataSource =>
-				<WeatherStationPreview
-					key={dataSource.node.id}
-					id={dataSource.node.id}
-					name={dataSource.node.name}
-					lastRecord={dataSource.node.allRecords ? dataSource.node.allRecords.records[0] : { //defaults
-							indoorTemperature: null
-						}}
-				/>
-			)}
-			<Paper style={{padding: 20, marginTop: '5rem'}}>
-				<h3>Add another weather station</h3>
+		let html = null;
+		if (stations.length === 0) {
+			html = <Paper style={{padding: 20}}>
+				<h2>At this place you can add and maintain all your weather stations</h2>
+				<p>Are you ready to add your first weather station? It's very simple:</p>
 				{weatherStationForm}
-			</Paper>
-		</div>
+			</Paper>;
+		} else {
+			html = <div>
+				{stations.map(station =>
+					<WeatherStationPreview
+						key={station.id}
+						id={station.id}
+						name={station.name}
+						lastRecord={station.records.length > 0 ? station.records[0] : { //defaults
+								indoorTemperature: null
+							}}
+					/>
+				)}
+				<Paper style={{padding: 20, marginTop: '5rem'}}>
+					<h3>Add another weather station</h3>
+					{weatherStationForm}
+				</Paper>
+			</div>
+		}
 
+		return <div id="AllWeatherStationsContainer">{html}</div>
 	}
-
-	return <div id="AllWeatherStationsContainer">{html}</div>
 
 };
 
-export default graphql(gql`{
-  allStations: allWeatherStations {
-    stations: edges {
-      cursor
-      node {
-        id
-        name
-        allRecords(first: 1) {
-          records {
-            absolutePressure(pressureUnit:PASCAL)
-            relativePressure(pressureUnit:PASCAL)
-            indoorTemperature(temperatureUnit:CELSIUS)
-            outdoorTemperature(temperatureUnit:CELSIUS)
-            indoorHumidity(humidityUnit:PERCENTAGE)
-            outdoorHumidity(humidityUnit:PERCENTAGE)
-            windSpeed(windSpeedUnit:KMH)
-            windGust(windSpeedUnit:KMH)
-          }
-        }
-      }
-    }
-  }
-}`, {
-	options: (props) => ({
-		forceFetch: true
-	}),
-})(AllWeatherStationsContainer);
+export default connect(
+	(storageState) => { // mapStateToProps
+		let {weatherStations: {entities, loading}} = storageState;
+
+		entities = Object.keys(entities).map(key => entities[key]); // object->array so it's possible to use .map()
+
+		return {
+			loading: loading,
+			stations: entities
+		}
+	}
+)(AllWeatherStationsContainer);

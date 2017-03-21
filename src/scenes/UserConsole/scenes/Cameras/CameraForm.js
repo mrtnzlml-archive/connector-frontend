@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
-import {showMessage} from 'actions/ActionCreators';
+import {showMessage} from 'actions/Message';
 import {ReduxStore} from 'services/ReduxStore';
 
 class CameraForm extends React.Component {

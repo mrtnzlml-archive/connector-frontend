@@ -1,9 +1,11 @@
-import MessagesReducer from 'reducers/MessagesReducer.js';
+import MessagesReducer from 'reducers/MessagesReducer';
+import WeatherStationsReducer from 'reducers/WeatherStationsReducer';
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import ApolloClient from 'apollo-client';
 import appConfig from './../../config/application';
 import HTTPFetchNetworkInterface from 'services/Apollo/HTTPFetchNetworkInterface';
 import DevTools from './DevTools';
+import thunkMiddleware from 'redux-thunk'
 
 const apolloClient = new ApolloClient({
 	networkInterface: new HTTPFetchNetworkInterface(appConfig.apiAddress),
@@ -11,11 +13,15 @@ const apolloClient = new ApolloClient({
 
 let reducer = combineReducers({
 	messages: MessagesReducer,
+	weatherStations: WeatherStationsReducer,
 	apollo: apolloClient.reducer(),
 });
 
 let enhancer = compose(
-	applyMiddleware(apolloClient.middleware()),
+	applyMiddleware(
+		apolloClient.middleware(),
+		thunkMiddleware,
+	),
 	DevTools.instrument(),
 );
 

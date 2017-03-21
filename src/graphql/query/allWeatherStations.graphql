@@ -1,0 +1,24 @@
+query ($recordsCount: Int = 1) {
+  allStations: allWeatherStations {
+    stations: edges {
+      cursor
+      node {
+        id
+        name
+        allRecords(first: $recordsCount) {
+          records {
+            aggregatedDate
+            absolutePressure(pressureUnit:PASCAL)
+            relativePressure(pressureUnit:PASCAL)
+            indoorTemperature(temperatureUnit:CELSIUS)
+            outdoorTemperature(temperatureUnit:CELSIUS)
+            indoorHumidity(humidityUnit:PERCENTAGE)
+            outdoorHumidity(humidityUnit:PERCENTAGE)
+            windSpeed(windSpeedUnit:KMH)
+            windGust(windSpeedUnit:KMH)
+          }
+        }
+      }
+    }
+  }
+}

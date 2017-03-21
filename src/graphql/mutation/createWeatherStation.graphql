@@ -1,0 +1,5 @@
+mutation ($name: String!) {
+  station: createWeatherStation(name: $name) {
+    id
+  }
+}
