@@ -1,12 +1,9 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import {browserHistory} from 'react-router'
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
 import Formsy from 'formsy-react';
 import {FormsyText} from 'formsy-material-ui/lib';
-import {showMessage} from 'actions/Message';
-import {ReduxStore} from 'services/ReduxStore';
+import {connect} from 'react-redux';
+import {createCamera} from 'actions/Camera';
 
 class CameraForm extends React.Component {
 
@@ -27,15 +24,10 @@ class CameraForm extends React.Component {
 	};
 
 	handleSubmit = (formValues) => {
-		this.props.mutate({
-			variables: {
-				streamSource: formValues.stream,
-				name: formValues.name,
-			}
-		}).then((response) => {
-			browserHistory.push('/cameras/'); //redirect to all cameras page
-			ReduxStore.dispatch(showMessage('New camera has been created. Streaming will start in one moment.'));
-		});
+		this.props.dispatch(createCamera({
+			streamSource: formValues.stream,
+			name: formValues.name,
+		}));
 	};
 
 	render() {
@@ -63,10 +55,4 @@ class CameraForm extends React.Component {
 
 }
 
-export default graphql(gql`
-  mutation ($streamSource: String!, $name: String!) {
-    station: createCamera(streamSource: $streamSource, name: $name) {
-      id
-    }
-  }
-`)(CameraForm);
+export default connect()(CameraForm);

@@ -1,0 +1,5 @@
+mutation ($streamSource: String!, $name: String!) {
+  station: createCamera(streamSource: $streamSource, name: $name) {
+    id
+  }
+}

@@ -1,0 +1,10 @@
+{
+  allCameras {
+    id
+    name
+    stream {
+      source
+      hls
+    }
+  }
+}

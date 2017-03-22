@@ -4,8 +4,8 @@ import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Alert from 'components/Dialog/Simple';
 import Style from './CameraWrapper.css';
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
+import {connect} from 'react-redux';
+import {removeCamera as removeCameraAction} from 'actions/Camera';
 
 class CameraWrapper extends React.Component {
 
@@ -22,13 +22,10 @@ class CameraWrapper extends React.Component {
 	};
 
 	removeCamera = (cameraId) => {
-		this.props.mutate({
-			variables: {
-				cameraId: cameraId
-			}
-		}).then((response) => {
-			window.location.reload();
-		});
+		this.props.dispatch(removeCameraAction({
+			cameraId: cameraId,
+		}));
+		this.discartAlert();
 	};
 
 	render = () => <div className="clearfix">
@@ -70,13 +67,4 @@ CameraWrapper.propTypes = {
 	).isRequired,
 };
 
-let removeCameraMutation = gql`
-  mutation($cameraId: ID!) {
-    removeCamera(cameraId: $cameraId) {
-      id
-    }
-  }
-`;
-
-let CameraWrapperWithMutations = graphql(removeCameraMutation)(CameraWrapper);
-export default CameraWrapperWithMutations;
+export default connect()(CameraWrapper);

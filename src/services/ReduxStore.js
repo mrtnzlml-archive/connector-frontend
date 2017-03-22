@@ -1,3 +1,4 @@
+import CamerasReducer from 'reducers/CamerasReducer';
 import MessagesReducer from 'reducers/MessagesReducer';
 import WeatherStationsReducer from 'reducers/WeatherStationsReducer';
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
@@ -12,6 +13,7 @@ const apolloClient = new ApolloClient({
 });
 
 let reducer = combineReducers({
+	cameras: CamerasReducer,
 	messages: MessagesReducer,
 	weatherStations: WeatherStationsReducer,
 	apollo: apolloClient.reducer(),

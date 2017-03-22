@@ -1,0 +1,5 @@
+mutation($cameraId: ID!) {
+  removeCamera(cameraId: $cameraId) {
+    id
+  }
+}
