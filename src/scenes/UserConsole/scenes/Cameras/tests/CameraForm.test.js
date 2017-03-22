@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CameraForm from '../CameraForm';
+import {CameraForm} from '../CameraForm';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {

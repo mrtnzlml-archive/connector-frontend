@@ -5,7 +5,7 @@ import CameraWrapper from './CameraWrapper';
 import {connect} from 'react-redux';
 import {loadAllCameras} from 'actions/Camera';
 
-const AllCamerasContainer = class extends React.Component {
+export const AllCamerasContainer = class extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(loadAllCameras());

@@ -6,7 +6,7 @@ import Alert from 'components/Dialog/Simple';
 import {connect} from 'react-redux';
 import {renameWeatherStation, removeWeatherStation} from 'actions/WeatherStation';
 
-let ModifyStation = class extends React.Component {
+export let ModifyStation = class extends React.Component {
 
 	state = {
 		alertOpened: false,

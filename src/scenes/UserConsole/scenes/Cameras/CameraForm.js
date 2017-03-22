@@ -5,7 +5,7 @@ import {FormsyText} from 'formsy-material-ui/lib';
 import {connect} from 'react-redux';
 import {createCamera} from 'actions/Camera';
 
-class CameraForm extends React.Component {
+export class CameraForm extends React.Component {
 
 	state = {
 		canSubmit: false,

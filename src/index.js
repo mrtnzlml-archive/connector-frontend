@@ -1,16 +1,16 @@
-import {ApolloProvider} from 'react-apollo';
+import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import router from './routes/index';
-import {ReduxStore, Client} from './services/ReduxStore';
+import {ReduxStore} from './services/ReduxStore';
 
 injectTapEventPlugin(); // needed for onTouchTap (https://github.com/callemall/material-ui#react-tap-event-plugin)
 
 ReactDOM.render(
-	<ApolloProvider client={Client} store={ReduxStore}>
+	<Provider store={ReduxStore}>
 		{router}
-	</ApolloProvider>,
+	</Provider>,
 	document.getElementById('root')
 );

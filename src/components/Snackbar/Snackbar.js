@@ -3,7 +3,7 @@ import MaterialSnackbar from 'material-ui/Snackbar';
 import {resetErrorMessage} from 'actions/Message';
 import {connect} from 'react-redux';
 
-const Snackbar = class extends React.Component {
+export const Snackbar = class extends React.Component {
 
 	state = {
 		open: false,

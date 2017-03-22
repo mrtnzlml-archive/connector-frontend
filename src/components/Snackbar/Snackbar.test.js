@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Snackbar from './Snackbar';
+import {Snackbar} from './Snackbar';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {

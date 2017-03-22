@@ -5,7 +5,7 @@ import {FormsyText} from 'formsy-material-ui/lib';
 import {connect} from 'react-redux';
 import {authenticate} from 'actions/User';
 
-class LoginForm extends React.Component {
+export class LoginForm extends React.Component {
 
 	state = {
 		canSubmit: false,

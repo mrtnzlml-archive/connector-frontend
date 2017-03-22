@@ -5,7 +5,7 @@ import WeatherStationForm from './WeatherStationForm';
 import Paper from 'material-ui/Paper';
 import {loadAllWeatherStations, createWeatherStation} from 'actions/WeatherStation';
 
-const AllWeatherStationsContainer = class extends React.Component {
+export const AllWeatherStationsContainer = class extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(loadAllWeatherStations());

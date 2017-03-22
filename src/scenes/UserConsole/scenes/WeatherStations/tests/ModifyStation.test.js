@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ModifyStation from '../ModifyStation';
+import {ModifyStation} from '../ModifyStation';
 import {ApplicationContext} from 'services/TestUtils';
 
 it('renders without crashing', () => {
