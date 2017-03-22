@@ -54,8 +54,17 @@ const routes = {
 	],
 };
 
-//TODO: https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md#exclude-devtools-from-production-builds
-export default <div>
-	<Router history={browserHistory} routes={routes}/>
-	<DevTools/>
-</div>
+let RouterJSX = null;
+if (process.env.NODE_ENV === 'production') {
+
+	RouterJSX = <Router history={browserHistory} routes={routes}/>
+
+} else {
+
+	RouterJSX = <div>
+		<Router history={browserHistory} routes={routes}/>
+		<DevTools/>
+	</div>
+
+}
+export default RouterJSX;

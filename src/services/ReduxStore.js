@@ -11,12 +11,21 @@ let reducer = combineReducers({
 	weatherStations: WeatherStationsReducer,
 });
 
-let enhancer = compose(
-	applyMiddleware(
-		thunkMiddleware,
-	),
-	DevTools.instrument(),
-);
+let enhancer = null;
+if (process.env.NODE_ENV === 'production') {
+
+	enhancer = compose(applyMiddleware(thunkMiddleware));
+
+} else {
+
+	enhancer = compose(
+		applyMiddleware(
+			thunkMiddleware,
+		),
+		DevTools.instrument(), // must be after 'applyMiddleware'
+	);
+
+}
 
 export let ReduxStore = createStore(
 	reducer,
