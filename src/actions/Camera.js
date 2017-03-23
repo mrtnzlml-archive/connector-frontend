@@ -8,7 +8,7 @@ export const ALL_CAMERAS_LOADING = 'ALL_CAMERAS_LOADING';
 export const ALL_CAMERAS_LOAD_SUCCESS = 'ALL_CAMERAS_LOAD_SUCCESS';
 export const ALL_CAMERAS_LOAD_FAILURE = 'ALL_CAMERAS_LOAD_FAILURE'; // TODO
 
-const loadingAllCameras = () => {
+export const loadingAllCameras = () => {
 	return {
 		type: ALL_CAMERAS_LOADING,
 	}
