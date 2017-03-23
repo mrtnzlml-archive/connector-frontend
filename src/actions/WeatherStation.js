@@ -11,8 +11,6 @@ import {showMessage} from './Message';
 export const FETCH_ALL_WS_LOADING = 'FETCH_ALL_WS_LOADING';
 export const FETCH_ALL_WS_SUCCESS = 'FETCH_ALL_WS_SUCCESS';
 
-export const FETCH_SINGLE_WS_SUCCESS = 'FETCH_SINGLE_WS_SUCCESS';
-
 // relies on Redux Thunk middleware
 export const loadAllWeatherStations = () => {
 	return dispatch => {
@@ -27,6 +25,8 @@ export const loadAllWeatherStations = () => {
 		});
 	}
 };
+
+export const FETCH_SINGLE_WS_SUCCESS = 'FETCH_SINGLE_WS_SUCCESS';
 
 // relies on Redux Thunk middleware
 export const loadSingleWeatherStation = (variables) => {

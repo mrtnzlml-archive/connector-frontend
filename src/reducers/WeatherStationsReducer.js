@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
 					? station.node.allRecords.records
 					: [];
 			}
-			return merge({}, {
+			return merge({}, state, {
 				loading: false,
 				entities,
 			});
