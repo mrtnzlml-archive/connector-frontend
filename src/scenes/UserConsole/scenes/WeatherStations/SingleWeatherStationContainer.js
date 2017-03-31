@@ -37,15 +37,18 @@ const SingleWeatherStationContainer = class extends React.Component {
 		};
 	}
 
-	componentWillMount() {
-		let load = () => this.props.dispatch(loadSingleWeatherStation({
+	loadData = () => {
+		this.props.dispatch(loadSingleWeatherStation({
 			wsId: this.props.routeParams.id, // FIXME
-			aggregation: 'hour',
+			aggregation: this.state.aggregation,
 			untilDate: this.state.untilDate,
 		}));
-		load();
+	};
+
+	componentWillMount() {
+		this.loadData();
 		this.timer = setInterval(() => {
-			load();
+			this.loadData();
 		}, 1000 * 30);
 	}
 
@@ -65,29 +68,25 @@ const SingleWeatherStationContainer = class extends React.Component {
 		this.setState(prevState => ({
 			aggregation: value
 		}));
-		this.delayedRefetch({
-			aggregation: value,
-		});
+		this.delayedRefetch();
 	};
 
 	changeUtilDate = (event, date) => {
 		this.setState(prevState => ({
 			untilDate: date
 		}));
-		this.delayedRefetch({
-			untilDate: date,
-		});
+		this.delayedRefetch();
 	};
 
 	delayedTimer = null;
 
-	delayedRefetch = (variables) => {
+	delayedRefetch = () => {
 		if (this.delayedTimer) {
 			clearTimeout(this.delayedTimer);
 		}
 		this.delayedTimer = setTimeout(() => {
 			this.delayedTimer = null;
-			this.props.data.refetch(variables);
+			this.loadData();
 		}, 250);
 	};
 

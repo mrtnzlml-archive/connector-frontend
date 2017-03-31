@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
 			});
 
 		case FETCH_SINGLE_WS_SUCCESS:
-			return merge({}, state, {
+			return merge({}, {
 				loading: false,
 				entities: {
 					[action.station.id]: {
