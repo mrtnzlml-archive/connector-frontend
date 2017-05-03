@@ -26,6 +26,7 @@ abbr {
     cursor: help;
     border-bottom: 1px dashed #ddd;
     position: relative;
+    text-decoration: none;
 }
 
 abbr:hover::after {
